@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C607660F-BFCA-40DB-8828-E75FD038E307}|ArtificersVet\\ArtificersVet.csproj|c:\\users\\r5 8500g\\desktop\\artificersvet\\artificersvet\\artificersvet\\pages\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C607660F-BFCA-40DB-8828-E75FD038E307}|ArtificersVet\\ArtificersVet.csproj|solutionrelative:artificersvet\\pages\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\Pages\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "ArtificersVet\\Pages\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\Pages\\_Layout.cshtml",
+              "RelativeToolTip": "ArtificersVet\\Pages\\_Layout.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAAkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-16T22:07:32.516Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

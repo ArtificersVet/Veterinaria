@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArtificersVet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e5da2913f5ca47083d0c39e3ac37c4e325c3dd6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArtificersVet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArtificersVet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
