@@ -1,0 +1,91 @@
+﻿@page "/Empleados/index"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<h3>Empleados</h3>
+
+@if (empleados == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (!empleados.Any())
+{
+    <p><em>No hay empleados disponibles.</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Puesto</th>
+                <th>Salario</th>
+                <th>Fecha de Contratación</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empleado in empleados.Skip((currentPage - 1) * pageSize).Take(pageSize))
+            {
+                <tr>
+                    <td>@empleado.Nombre</td>
+                    <td>@empleado.Apellido</td>
+                    <td>@empleado.Email</td>
+                    <td>@empleado.Telefono</td>
+                    <td>@empleado.Direccion</td>
+                    <td>@empleado.Puesto</td>
+                    <td>@empleado.Salario</td>
+                    <td>@empleado.FechaContratacion?.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+        <button class="btn btn-success" @onclick="AddEmpleado">Nueva Consulta</button>
+    </table>
+
+    <div class="pagination">
+        <button @onclick="PreviousPage" disabled="@IsPreviousDisabled">Anterior</button>
+        <span>Página @currentPage de @totalPages</span>
+        <button @onclick="NextPage" disabled="@IsNextDisabled">Siguiente</button>
+    </div>
+}
+
+@code {
+    private List<Empleado> empleados;
+    private int currentPage = 1;
+    private int pageSize = 20;
+    private int totalPages => (int)Math.Ceiling((double)empleados.Count / pageSize);
+
+    protected override async Task OnInitializedAsync()
+    {
+        empleados = await dbContext.Empleados.ToListAsync();
+    }
+    private void AddEmpleado()
+    {
+        NavigationManager.NavigateTo("/Empleados/crear");
+    }
+    private void PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+        }
+    }
+
+    private void NextPage()
+    {
+        if (currentPage < totalPages)
+        {
+            currentPage++;
+        }
+    }
+
+    private bool IsPreviousDisabled => currentPage == 1;
+    private bool IsNextDisabled => currentPage == totalPages;
+}

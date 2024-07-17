@@ -1,0 +1,74 @@
+﻿@page "/Empleados/crear"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+
+<h3>Crear Nuevo Empleado</h3>
+
+<EditForm Model="nuevoEmpleado" OnValidSubmit="CrearEmpleado">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <InputText id="nombre" class="form-control" @bind-Value="nuevoEmpleado.Nombre" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Nombre)" />
+    </div>
+
+    <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <InputText id="apellido" class="form-control" @bind-Value="nuevoEmpleado.Apellido" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Apellido)" />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" type="email" class="form-control" @bind-Value="nuevoEmpleado.Email" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <InputText id="telefono" class="form-control" @bind-Value="nuevoEmpleado.Telefono" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Telefono)" />
+    </div>
+
+    <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <InputText id="direccion" class="form-control" @bind-Value="nuevoEmpleado.Direccion" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Direccion)" />
+    </div>
+
+    <div class="form-group">
+        <label for="puesto">Puesto</label>
+        <InputText id="puesto" class="form-control" @bind-Value="nuevoEmpleado.Puesto" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Puesto)" />
+    </div>
+
+    <div class="form-group">
+        <label for="salario">Salario</label>
+        <InputNumber id="salario" class="form-control" @bind-Value="nuevoEmpleado.Salario" />
+        <ValidationMessage For="@(() => nuevoEmpleado.Salario)" />
+    </div>
+
+    <div class="form-group">
+        <label for="fechaContratacion">Fecha de Contratación</label>
+        <InputDate id="fechaContratacion" class="form-control" @bind-Value="nuevoEmpleado.FechaContratacion" />
+        <ValidationMessage For="@(() => nuevoEmpleado.FechaContratacion)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+</EditForm>
+
+@code {
+    private Empleado nuevoEmpleado = new Empleado();
+
+    private async Task CrearEmpleado()
+    {
+        dbContext.Empleados.Add(nuevoEmpleado);
+        await dbContext.SaveChangesAsync();
+        NavigationManager.NavigateTo("/Empleados/index");
+    }
+}
