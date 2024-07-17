@@ -1,0 +1,79 @@
+﻿@page "/Consultas/index"
+@using ArtificersVet.Models
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<h3>Lista de Consultas</h3>
+
+@if (consultas == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Mascota</th>
+                <th>Empleado</th>
+                <th>Monto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consulta in consultas)
+            {
+                <tr>
+                    <td>@consulta.Id</td>
+                    <td>@consulta.FechaConsulta?.ToString("dd/MM/yyyy")</td>
+                    <td>@(consulta.Cliente?.Nombre + " " + consulta.Cliente?.Apellido)</td>
+                    <td>@consulta.Mascota?.Nombre</td>
+                    <td>@(consulta.Empleado?.Nombre + " " + consulta.Empleado?.Apellido)</td>
+                    <td>@consulta.Monto?.ToString("C")</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditConsulta(consulta.Id)">Editar</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteConsulta(consulta.Id)">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-success" @onclick="AddConsulta">Nueva Consulta</button>
+
+@code {
+    private List<Consulta> consultas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        consultas = await dbContext.Consultas.Include(c => c.Cliente)
+                                             .Include(c => c.Empleado)
+                                             .Include(c => c.Mascota).ToListAsync();
+    }
+
+    private void AddConsulta()
+    {
+        NavigationManager.NavigateTo("/consultas/crete"); 
+    }
+
+    private void EditConsulta(int id)
+    {
+        NavigationManager.NavigateTo($"/consultas/edit/{id}");
+    }
+
+    private async Task DeleteConsulta(int id)
+    {
+        var consulta = await dbContext.Consultas.FindAsync(id);
+        if (consulta != null && await JSRuntime.InvokeAsync<bool>("confirm", new object?[] { $"¿Estás seguro de eliminar la consulta {consulta.Id}?" }))
+        {
+            dbContext.Consultas.Remove(consulta);
+            await dbContext.SaveChangesAsync();
+            consultas.Remove(consulta); 
+        }
+    }
+}
