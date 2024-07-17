@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Z8vB6oL369e7O5nbOthwA4dxjAg/s0kenoO6Y2uGziw=",
+  "Hash": "Se/kCNjz+/1+Di4KjUE5DR0LSf9N59n3o0QDCvUa6v4=",
   "Source": "ArtificersVet",
   "BasePath": "_content/ArtificersVet",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ArtificersVet\\wwwroot",
       "Source": "ArtificersVet",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ArtificersVet.styles.css",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ArtificersVet.styles.css",
       "SourceId": "ArtificersVet",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "ArtificersVet.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ArtificersVet.styles.css"
+      "OriginalItemSpec": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\bundle\\ArtificersVet.styles.css"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ArtificersVet.bundle.scp.css",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ArtificersVet.bundle.scp.css",
       "SourceId": "ArtificersVet",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "ArtificersVet.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ArtificersVet.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ArtificersVet.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\css\\site.css",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\favicon.ico",
       "SourceId": "ArtificersVet",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\R5 8500G\\Desktop\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\wwwroot\\",
       "BasePath": "_content/ArtificersVet",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",

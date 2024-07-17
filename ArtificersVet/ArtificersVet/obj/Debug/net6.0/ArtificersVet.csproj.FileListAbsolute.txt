@@ -30,3 +30,35 @@ C:\Users\R5 8500G\Desktop\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\ne
 C:\Users\R5 8500G\Desktop\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.pdb
 C:\Users\R5 8500G\Desktop\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.genruntimeconfig.cache
 C:\Users\R5 8500G\Desktop\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ref\ArtificersVet.dll
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\appsettings.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.staticwebassets.runtime.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.exe
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.deps.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.runtimeconfig.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.dll
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\bin\Debug\net6.0\ArtificersVet.pdb
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.AssemblyInfoInputs.cache
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.AssemblyInfo.cs
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.csproj.CoreCompileInputs.cache
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.RazorAssemblyInfo.cache
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.RazorAssemblyInfo.cs
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.sourcelink.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets\msbuild.ArtificersVet.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets\msbuild.build.ArtificersVet.props
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ArtificersVet.props
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ArtificersVet.props
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\scopedcss\bundle\ArtificersVet.styles.css
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\scopedcss\projectbundle\ArtificersVet.bundle.scp.css
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.dll
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\refint\ArtificersVet.dll
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.pdb
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ArtificersVet.genruntimeconfig.cache
+C:\Users\MINEDUCYT\Desktop\Veterinaria\ArtificersVet\ArtificersVet\ArtificersVet\obj\Debug\net6.0\ref\ArtificersVet.dll
