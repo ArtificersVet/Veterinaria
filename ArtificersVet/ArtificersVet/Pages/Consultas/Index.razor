@@ -1,5 +1,7 @@
 ﻿@page "/Consultas/index"
 @using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -58,7 +60,7 @@ else
 
     private void AddConsulta()
     {
-        NavigationManager.NavigateTo("/consultas/crete"); 
+        NavigationManager.NavigateTo("/consultas/create"); 
     }
 
     private void EditConsulta(int id)

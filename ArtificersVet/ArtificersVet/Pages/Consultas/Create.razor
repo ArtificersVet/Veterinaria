@@ -1,5 +1,120 @@
-﻿<h3>Create</h3>
+﻿@page "/consultas/create"
+@using ArtificersVet.Data
+@using ArtificersVet.Models
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<h3>Crear Consulta</h3>
+
+<EditForm Model="@consulta" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="clienteId">Cliente:</label>
+        <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
+            <option value="">Seleccione un cliente</option>
+            @if (clientes != null) // Chequeo condicional
+            {
+                @foreach (var cliente in clientes)
+                {
+                    <option value="@cliente.Id">@cliente.Nombre @cliente.Apellido</option>
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => consulta.ClienteId)" />
+    </div>
+
+    <div class="form-group">
+        <label for="mascotaId">Mascota:</label>
+        <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
+            <option value="">Seleccione una mascota</option>
+            @if (mascotas != null) // Chequeo condicional
+            {
+                @foreach (var mascota in mascotas)
+                {
+                    <option value="@mascota.Id">@mascota.Nombre (@mascota.Especie)</option>
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => consulta.MascotaId)" />
+    </div>
+
+    <div class="form-group">
+        <label for="empleadoId">Empleado:</label>
+        <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
+            <option value="">Seleccione un empleado</option>
+            @if (empleados != null) // Chequeo condicional
+            {
+                @foreach (var empleado in empleados)
+                {
+                    <option value="@empleado.Id">@empleado.Nombre @empleado.Apellido</option>
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => consulta.EmpleadoId)" />
+    </div>
+
+    <div class="form-group">
+        <label for="fechaConsulta">Fecha de Consulta:</label>
+        <InputDate id="fechaConsulta" @bind-Value="consulta.FechaConsulta" class="form-control" />
+        <ValidationMessage For="@(() => consulta.FechaConsulta)" />
+    </div>
+
+
+    <div class="form-group">
+        <label for="motivo">Motivo:</label>
+        <InputText id="motivo" @bind-Value="consulta.Motivo" class="form-control" />
+        <ValidationMessage For="@(() => consulta.Motivo)" />
+    </div>
+
+    <div class="form-group">
+        <label for="diagnostico">Diagnóstico:</label>
+        <InputTextArea id="diagnostico" @bind-Value="consulta.Diagnostico" class="form-control" />
+        <ValidationMessage For="@(() => consulta.Diagnostico)" />
+    </div>
+
+    <div class="form-group">
+        <label for="tratamiento">Tratamiento:</label>
+        <InputTextArea id="tratamiento" @bind-Value="consulta.Tratamiento" class="form-control" />
+        <ValidationMessage For="@(() => consulta.Tratamiento)" />
+    </div>
+
+    <div class="form-group">
+        <label for="monto">Monto:</label>
+        <InputNumber id="monto" @bind-Value="consulta.Monto" class="form-control" />
+        <ValidationMessage For="@(() => consulta.Monto)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+</EditForm>
+
 
 @code {
+    private Consulta consulta = new Consulta();
+    private List<Cliente1> clientes;
+    private List<Mascota1> mascotas;
+    private List<Empleado> empleados;
 
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await dbContext.Clientes1.ToListAsync();
+        mascotas = await dbContext.Mascotas1.ToListAsync();
+        empleados = await dbContext.Empleados.ToListAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        dbContext.Consultas.Add(consulta);
+        await dbContext.SaveChangesAsync();
+        await JSRuntime.InvokeVoidAsync("alert", "Los datos se ingresaron correctamente");
+        NavigationManager.NavigateTo("/consultas/index");
+    }
+
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/consultas/index");
+    }
 }
