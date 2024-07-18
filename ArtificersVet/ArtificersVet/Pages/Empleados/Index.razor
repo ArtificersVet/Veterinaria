@@ -7,63 +7,81 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-<h3>Empleados</h3>
+<div class="container mt-4">
+    <h3 class="mb-4">Gestión de Empleados</h3>
 
-@if (empleados == null)
-{
-    <p><em>Cargando...</em></p>
-}
-else if (!empleados.Any())
-{
-    <p><em>No hay empleados disponibles.</em></p>
-}
-else
-{
-    <button class="btn btn-success" @onclick="AddEmpleado">Nueva Consulta</button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Puesto</th>
-                <th>Salario</th>
-                <th>Fecha de Contratación</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var empleado in empleados.Skip((currentPage - 1) * pageSize).Take(pageSize))
-            {
-                <tr>
-                    <td>@empleado.Nombre</td>
-                    <td>@empleado.Apellido</td>
-                    <td>@empleado.Email</td>
-                    <td>@empleado.Telefono</td>
-                    <td>@empleado.Direccion</td>
-                    <td>@empleado.Puesto</td>
-                    <td>@empleado.Salario</td>
-                    <td>@empleado.FechaContratacion?.ToString("dd/MM/yyyy")</td>
+    @if (empleados == null)
+    {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+    }
+    else if (!empleados.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            No hay empleados disponibles.
+        </div>
+    }
+    else
+    {
+        <div class="mb-3">
+            <button class="btn btn-success" @onclick="AddEmpleado">Nuevo Empleado</button>
+        </div>
 
-                    <button class="btn btn-primary" @onclick="() => EditEmpleado(empleado.Id)">Editar</button>
-                    <td>
-                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteEmpleado(empleado.Id)">Eliminar</button>
-                    </td>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Puesto</th>
+                        <th>Salario</th>
+                        <th>Fecha de Contratación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var empleado in empleados.Skip((currentPage - 1) * pageSize).Take(pageSize))
+                    {
+                        <tr>
+                            <td>@empleado.Nombre</td>
+                            <td>@empleado.Apellido</td>
+                            <td>@empleado.Email</td>
+                            <td>@empleado.Telefono</td>
+                            <td>@empleado.Direccion</td>
+                            <td>@empleado.Puesto</td>
+                            <td>@empleado.Salario</td>
+                            <td>@empleado.FechaContratacion?.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" @onclick="() => EditEmpleado(empleado.Id)">Editar</button>
+                                <button class="btn btn-danger btn-sm ms-2" @onclick="() => DeleteEmpleado(empleado.Id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-
-                </tr>
-            }
-        </tbody>
-       
-    </table>
-
-    <div class="pagination">
-        <button @onclick="PreviousPage" disabled="@IsPreviousDisabled">Anterior</button>
-        <span>Página @currentPage de @totalPages</span>
-        <button @onclick="NextPage" disabled="@IsNextDisabled">Siguiente</button>
-    </div>
-}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(IsPreviousDisabled ? "disabled" : "")">
+                    <button class="page-link" @onclick="PreviousPage">Anterior</button>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Página @currentPage de @totalPages</span>
+                </li>
+                <li class="page-item @(IsNextDisabled ? "disabled" : "")">
+                    <button class="page-link" @onclick="NextPage">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
 
 @code {
     private List<Empleado> empleados;
@@ -75,6 +93,7 @@ else
     {
         empleados = await dbContext.Empleados.ToListAsync();
     }
+
     private void AddEmpleado()
     {
         NavigationManager.NavigateTo("/Empleados/crear");
@@ -84,6 +103,7 @@ else
     {
         NavigationManager.NavigateTo($"/Empleados/editar/{id}");
     }
+
     private void PreviousPage()
     {
         if (currentPage > 1)
@@ -102,6 +122,7 @@ else
 
     private bool IsPreviousDisabled => currentPage == 1;
     private bool IsNextDisabled => currentPage == totalPages;
+
     private async Task DeleteEmpleado(int empleadoId)
     {
         var empleado = await dbContext.Empleados.FindAsync(empleadoId);
@@ -137,6 +158,4 @@ else
             }
         }
     }
-
-
 }
