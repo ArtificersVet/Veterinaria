@@ -1,0 +1,92 @@
+﻿@page "/Empleados/editar/{id:int}"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+
+<h3>Editar Empleado</h3>
+
+@if (empleado == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <EditForm Model="empleado" OnValidSubmit="ActualizarEmpleado">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <InputText id="nombre" class="form-control" @bind-Value="empleado.Nombre" />
+            <ValidationMessage For="@(() => empleado.Nombre)" />
+        </div>
+
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <InputText id="apellido" class="form-control" @bind-Value="empleado.Apellido" />
+            <ValidationMessage For="@(() => empleado.Apellido)" />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText id="email" type="email" class="form-control" @bind-Value="empleado.Email" />
+            <ValidationMessage For="@(() => empleado.Email)" />
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <InputText id="telefono" class="form-control" @bind-Value="empleado.Telefono" />
+            <ValidationMessage For="@(() => empleado.Telefono)" />
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <InputText id="direccion" class="form-control" @bind-Value="empleado.Direccion" />
+            <ValidationMessage For="@(() => empleado.Direccion)" />
+        </div>
+
+        <div class="form-group">
+            <label for="puesto">Puesto</label>
+            <InputText id="puesto" class="form-control" @bind-Value="empleado.Puesto" />
+            <ValidationMessage For="@(() => empleado.Puesto)" />
+        </div>
+
+        <div class="form-group">
+            <label for="salario">Salario</label>
+            <InputNumber id="salario" class="form-control" @bind-Value="empleado.Salario" />
+            <ValidationMessage For="@(() => empleado.Salario)" />
+        </div>
+
+        <div class="form-group">
+            <label for="fechaContratacion">Fecha de Contratación</label>
+            <InputDate id="fechaContratacion" class="form-control" @bind-Value="empleado.FechaContratacion" />
+            <ValidationMessage For="@(() => empleado.FechaContratacion)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    private Empleado empleado;
+
+    protected override async Task OnInitializedAsync()
+    {
+        empleado = await dbContext.Empleados.FindAsync(id);
+        if (empleado == null)
+        {
+            NavigationManager.NavigateTo("/Empleados/index");
+        }
+    }
+
+    private async Task ActualizarEmpleado()
+    {
+        dbContext.Empleados.Update(empleado);
+        await dbContext.SaveChangesAsync();
+        NavigationManager.NavigateTo("/Empleados/index");
+    }
+}

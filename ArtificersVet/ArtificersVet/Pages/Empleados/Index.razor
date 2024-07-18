@@ -43,6 +43,9 @@ else
                     <td>@empleado.Puesto</td>
                     <td>@empleado.Salario</td>
                     <td>@empleado.FechaContratacion?.ToString("dd/MM/yyyy")</td>
+
+                    <button class="btn btn-primary" @onclick="() => EditEmpleado(empleado.Id)">Editar</button>
+
                 </tr>
             }
         </tbody>
@@ -69,6 +72,11 @@ else
     private void AddEmpleado()
     {
         NavigationManager.NavigateTo("/Empleados/crear");
+    }
+
+    private void EditEmpleado(int id)
+    {
+        NavigationManager.NavigateTo($"/Empleados/editar/{id}");
     }
     private void PreviousPage()
     {
