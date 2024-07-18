@@ -7,58 +7,180 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-<h3>Lista de Consultas</h3>
+ <div class="container">
+    @* <div class="navbar">
+        <a href="/">Inicio</a>
+        <a href="/empleados">Empleados</a>
+        <a href="/clientes">Clientes</a>
+        <a href="/mascotas">Mascotas</a>
+        <a href="/consultas">Consultas</a>
+    </div> *@
 
-<EditForm Model="@this" OnValidSubmit="BuscarConsultasPorFecha">
-    <div class="form-group">
-        <label for="fechaBusqueda">Buscar por Fecha:</label>
-        <div class="input-group">
-            <InputDate id="fechaBusqueda" @bind-Value="fechaBusqueda" class="form-control" />
-            <button class="btn btn-primary" type="submit">Buscar</button>
-        </div>
+    <div class="content">
+        <h3>Consultas</h3>
+
+        <EditForm Model="@this" OnValidSubmit="BuscarConsultasPorFecha">
+        <button class="btn-create" @onclick="AddConsulta">Nueva Consulta</button>
+
+            <div class="actions">
+                <label>Fecha de la Consulta</label>
+                <div class="input-group">
+                    <InputDate id="fechaBusqueda" @bind-Value="fechaBusqueda" class="form-control" />
+                    <button class="btn-search" type="submit">Buscar</button><br />
+                </div>
+            </div>
+        </EditForm>
+
+        @if (consultas == null)
+        {
+            <p><em>Cargando...</em></p>
+        }
+        else
+        {
+            <h3>Listado de Consultas</h3>
+            
+            <table class="consultas-table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Mascota</th>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Diagnostico</th>
+                        <th>Tratamiento</th>
+                        <th>Monto</th>
+                        <th>Empleado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var consulta in consultas)
+                    {
+                        <tr>
+                            <td>@consulta.Cliente?.Nombre</td>
+                            <td>@consulta.Mascota?.Nombre</td>
+                            <td>@consulta.FechaConsulta?.ToString("dd/MM/yyyy")</td>
+                            <td>@consulta.Motivo</td>
+                            <td>@consulta.Diagnostico</td>
+                            <td>@consulta.Tratamiento</td>
+                            <td>@consulta.Monto?.ToString("C")</td>
+                            <td>@consulta.Empleado?.Nombre</td>
+                            <td>
+                                <button class="btn-edit" @onclick="() => EditConsulta(consulta.Id)">Modificar</button>
+                                <button class="btn-view" @onclick="() => ViewConsulta(consulta.Id)">Ver</button>
+                                <button class="btn-delete" @onclick="() => DeleteConsulta(consulta.Id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</div>
     </div>
-</EditForm>
 
-@if (consultas == null)
-{
-    <p><em>Cargando...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Cliente</th>
-                <th>Mascota</th>
-                <th>Empleado</th>
-                <th>Monto</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var consulta in consultas)
-            {
-                <tr>
-                    <td>@consulta.Id</td>
-                    <td>@consulta.FechaConsulta?.ToString("dd/MM/yyyy")</td>
-                    <td>@(consulta.Cliente?.Nombre + " " + consulta.Cliente?.Apellido)</td>
-                    <td>@consulta.Mascota?.Nombre</td>
-                    <td>@(consulta.Empleado?.Nombre + " " + consulta.Empleado?.Apellido)</td>
-                    <td>@consulta.Monto?.ToString("C")</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="() => EditConsulta(consulta.Id)">Editar</button>
-                        <button class="btn btn-primary" @onclick="() => ViewConsulta(consulta.Id)">Ver</button>
-                        <button class="btn btn-danger" @onclick="() => DeleteConsulta(consulta.Id)">Eliminar</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
-<button class="btn btn-success" @onclick="AddConsulta">Nueva Consulta</button>
+<style>
+    .container {
+        background-color: #FFFFAE;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        background-color: #ffdd99;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+        .navbar a {
+            margin-right: 15px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    .content h3 {
+        text-align: center;
+    }
+
+    .actions {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #fechaBusqueda {
+        width: 125px;
+        margin-right: 10px; /* Espacio entre el input y el botón */
+        border-radius: 4%;
+    }
+
+    .btn-search {
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .consultas-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+        .consultas-table th, .consultas-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .consultas-table th {
+            background-color: #ffcc66;
+        }
+
+    .btn-create {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-edit {
+        background-color: blue;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-view {
+        background-color: yellow;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 
 @code {
     private List<Consulta> consultas;

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KOWmERZOVwwahHVmuWETlUgIFKY+2ttqbXnn08JsrteSxrL5oJBNb+zxbRMC5HAv6qQwbS9TW/Vdpa9t4ZgCmA==",
+  "dgSpecHash": "UKsF6+GI9+0leK1481ikyVRmG72J8W8OUJdGp+UAd+MyvpkhHvl/zqGJQCTFHhmNatsQ3rK9/wUiijpeS+qeqw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MINEDUCYT\\Desktop\\Veterinaria\\ArtificersVet\\ArtificersVet\\ArtificersVet\\ArtificersVet.csproj",
+  "projectFilePath": "C:\\Users\\MINEDUCYT\\Desktop\\vete\\ArtificersVet\\ArtificersVet\\ArtificersVet.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MINEDUCYT\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\MINEDUCYT\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
