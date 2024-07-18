@@ -8,6 +8,16 @@
 
 <h3>Lista de Consultas</h3>
 
+<EditForm Model="@this" OnValidSubmit="BuscarConsultasPorFecha">
+    <div class="form-group">
+        <label for="fechaBusqueda">Buscar por Fecha:</label>
+        <div class="input-group">
+            <InputDate id="fechaBusqueda" @bind-Value="fechaBusqueda" class="form-control" />
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </div>
+</EditForm>
+
 @if (consultas == null)
 {
     <p><em>Cargando...</em></p>
@@ -50,17 +60,38 @@ else
 
 @code {
     private List<Consulta> consultas;
+    private DateTime? fechaBusqueda = null;
 
     protected override async Task OnInitializedAsync()
     {
-        consultas = await dbContext.Consultas.Include(c => c.Cliente)
-                                             .Include(c => c.Empleado)
-                                             .Include(c => c.Mascota).ToListAsync();
+        consultas = await dbContext.Consultas
+            .Include(c => c.Cliente)
+            .Include(c => c.Empleado)
+            .Include(c => c.Mascota)
+            .ToListAsync();
+    }
+
+    private async Task BuscarConsultasPorFecha()
+    {
+        if (fechaBusqueda.HasValue)
+        {
+            consultas = await dbContext.Consultas
+                .Include(c => c.Cliente)
+                .Include(c => c.Empleado)
+                .Include(c => c.Mascota)
+                .Where(c => c.FechaConsulta.HasValue && c.FechaConsulta.Value.Date == fechaBusqueda.Value.Date)
+                .ToListAsync();
+        }
+        else
+        {
+            // Si no se proporciona una fecha, carga todas las consultas
+            await OnInitializedAsync();
+        }
     }
 
     private void AddConsulta()
     {
-        NavigationManager.NavigateTo("/consultas/create"); 
+        NavigationManager.NavigateTo("/consultas/create");
     }
 
     private void EditConsulta(int id)
@@ -75,7 +106,11 @@ else
         {
             dbContext.Consultas.Remove(consulta);
             await dbContext.SaveChangesAsync();
-            consultas.Remove(consulta); 
+            consultas = await dbContext.Consultas
+                .Include(c => c.Cliente)
+                .Include(c => c.Mascota)
+                .Include(c => c.Empleado)
+                .ToListAsync(); // Recarga la lista después de eliminar
         }
     }
 }

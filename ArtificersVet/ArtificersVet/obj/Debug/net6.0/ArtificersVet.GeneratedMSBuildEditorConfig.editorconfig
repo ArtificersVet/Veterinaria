@@ -26,10 +26,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXENyZWF0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Consultas/Delete.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXERlbGV0ZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Consultas/Edit.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXEVkaXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +36,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Empleados/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Empleados/Editar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEVkaXRhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/Empleados/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEluZGV4LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MINEDUCYT/Desktop/Veterinaria/ArtificersVet/ArtificersVet/ArtificersVet/Pages/FetchData.razor]

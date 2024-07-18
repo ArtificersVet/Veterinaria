@@ -15,7 +15,7 @@
         <label for="clienteId">Cliente:</label>
         <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
             <option value="">Seleccione un cliente</option>
-            @if (clientes != null) // Chequeo condicional
+            @if (clientes != null) 
             {
                 @foreach (var cliente in clientes)
                 {
@@ -45,7 +45,7 @@
         <label for="empleadoId">Empleado:</label>
         <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
             <option value="">Seleccione un empleado</option>
-            @if (empleados != null) // Chequeo condicional
+            @if (empleados != null)
             {
                 @foreach (var empleado in empleados)
                 {
