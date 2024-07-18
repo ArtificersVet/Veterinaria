@@ -45,6 +45,10 @@ else
                     <td>@empleado.FechaContratacion?.ToString("dd/MM/yyyy")</td>
 
                     <button class="btn btn-primary" @onclick="() => EditEmpleado(empleado.Id)">Editar</button>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteEmpleado(empleado.Id)">Eliminar</button>
+                    </td>
+
 
                 </tr>
             }
@@ -96,4 +100,20 @@ else
 
     private bool IsPreviousDisabled => currentPage == 1;
     private bool IsNextDisabled => currentPage == totalPages;
+    private async Task DeleteEmpleado(int empleadoId)
+    {
+        var empleado = empleados.FirstOrDefault(e => e.Id == empleadoId);
+        if (empleado != null)
+        {
+            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Estás seguro de que quieres eliminar a {empleado.Nombre} {empleado.Apellido}?");
+
+            if (confirmed)
+            {
+                dbContext.Empleados.Remove(empleado);
+                await dbContext.SaveChangesAsync();
+                empleados.Remove(empleado);
+            }
+        }
+    }
+
 }
