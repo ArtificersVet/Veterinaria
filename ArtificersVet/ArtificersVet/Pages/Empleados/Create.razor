@@ -5,62 +5,85 @@
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
 
-<h3>Crear Nuevo Empleado</h3>
+<h3 class="text-center mt-4">Crear Nuevo Empleado</h3>
 
-<EditForm Model="nuevoEmpleado" OnValidSubmit="CrearEmpleado">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header text-center">
+                    <h5>Información del Empleado</h5>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="nuevoEmpleado" OnValidSubmit="CrearEmpleado">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
 
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <InputText id="nombre" class="form-control" @bind-Value="nuevoEmpleado.Nombre" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Nombre)" />
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="nombre">Nombre</label>
+                                <InputText id="nombre" class="form-control" @bind-Value="nuevoEmpleado.Nombre" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Nombre)" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="apellido">Apellido</label>
+                                <InputText id="apellido" class="form-control" @bind-Value="nuevoEmpleado.Apellido" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Apellido)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <InputText id="email" type="email" class="form-control" @bind-Value="nuevoEmpleado.Email" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Email)" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="telefono">Teléfono</label>
+                                <InputText id="telefono" class="form-control" @bind-Value="nuevoEmpleado.Telefono" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Telefono)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="direccion">Dirección</label>
+                                <InputText id="direccion" class="form-control" @bind-Value="nuevoEmpleado.Direccion" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Direccion)" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="puesto">Puesto</label>
+                                <InputText id="puesto" class="form-control" @bind-Value="nuevoEmpleado.Puesto" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Puesto)" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="salario">Salario</label>
+                                <InputNumber id="salario" class="form-control" @bind-Value="nuevoEmpleado.Salario" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.Salario)" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="fechaContratacion">Fecha de Contratación</label>
+                                <InputDate id="fechaContratacion" class="form-control" @bind-Value="nuevoEmpleado.FechaContratacion" />
+                                <ValidationMessage For="@(() => nuevoEmpleado.FechaContratacion)" />
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="apellido">Apellido</label>
-        <InputText id="apellido" class="form-control" @bind-Value="nuevoEmpleado.Apellido" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Apellido)" />
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email</label>
-        <InputText id="email" type="email" class="form-control" @bind-Value="nuevoEmpleado.Email" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Email)" />
-    </div>
-
-    <div class="form-group">
-        <label for="telefono">Teléfono</label>
-        <InputText id="telefono" class="form-control" @bind-Value="nuevoEmpleado.Telefono" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Telefono)" />
-    </div>
-
-    <div class="form-group">
-        <label for="direccion">Dirección</label>
-        <InputText id="direccion" class="form-control" @bind-Value="nuevoEmpleado.Direccion" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Direccion)" />
-    </div>
-
-    <div class="form-group">
-        <label for="puesto">Puesto</label>
-        <InputText id="puesto" class="form-control" @bind-Value="nuevoEmpleado.Puesto" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Puesto)" />
-    </div>
-
-    <div class="form-group">
-        <label for="salario">Salario</label>
-        <InputNumber id="salario" class="form-control" @bind-Value="nuevoEmpleado.Salario" />
-        <ValidationMessage For="@(() => nuevoEmpleado.Salario)" />
-    </div>
-
-    <div class="form-group">
-        <label for="fechaContratacion">Fecha de Contratación</label>
-        <InputDate id="fechaContratacion" class="form-control" @bind-Value="nuevoEmpleado.FechaContratacion" />
-        <ValidationMessage For="@(() => nuevoEmpleado.FechaContratacion)" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Crear</button>
-</EditForm>
+</div>
 
 @code {
     private Empleado nuevoEmpleado = new Empleado();
