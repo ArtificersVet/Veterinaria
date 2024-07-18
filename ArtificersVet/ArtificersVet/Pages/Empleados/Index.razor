@@ -2,6 +2,7 @@
 @using ArtificersVet.Models
 @using ArtificersVet.Data
 @using Microsoft.EntityFrameworkCore
+@using System.Text.Json
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -102,18 +103,39 @@ else
     private bool IsNextDisabled => currentPage == totalPages;
     private async Task DeleteEmpleado(int empleadoId)
     {
-        var empleado = empleados.FirstOrDefault(e => e.Id == empleadoId);
+        var empleado = await dbContext.Empleados.FindAsync(empleadoId);
         if (empleado != null)
         {
-            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Estás seguro de que quieres eliminar a {empleado.Nombre} {empleado.Apellido}?");
-
-            if (confirmed)
+            var result = await JSRuntime.InvokeAsync<object>("Swal.fire", new
             {
-                dbContext.Empleados.Remove(empleado);
-                await dbContext.SaveChangesAsync();
-                empleados.Remove(empleado);
+                title = "¿Estás seguro?",
+                text = $"¿Estás seguro de que quieres eliminar a {empleado.Nombre} {empleado.Apellido}?",
+                icon = "warning",
+                showCancelButton = true,
+                confirmButtonColor = "#dc3545",
+                confirmButtonText = "Sí, eliminar",
+                cancelButtonText = "Cancelar"
+            });
+
+            // Convertir el resultado a un booleano explícitamente
+            if (result is not null && result is JsonElement jsonResult && jsonResult.TryGetProperty("isConfirmed", out var isConfirmed))
+            {
+                if (isConfirmed.GetBoolean())
+                {
+                    // Eliminar las consultas asociadas
+                    var consultas = await dbContext.Consultas.Where(c => c.EmpleadoId == empleadoId).ToListAsync();
+                    dbContext.Consultas.RemoveRange(consultas);
+
+                    // Eliminar al empleado
+                    dbContext.Empleados.Remove(empleado);
+                    await dbContext.SaveChangesAsync();
+
+                    // Actualizar la lista de empleados
+                    empleados.Remove(empleado);
+                }
             }
         }
     }
+
 
 }
