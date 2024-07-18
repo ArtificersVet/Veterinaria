@@ -2,6 +2,7 @@
 @using ArtificersVet.Models
 @using ArtificersVet.Data
 @using Microsoft.EntityFrameworkCore
+@inject NavigationManager NavigationManager
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -48,6 +49,7 @@ else
                     <td>@consulta.Monto?.ToString("C")</td>
                     <td>
                         <button class="btn btn-primary" @onclick="() => EditConsulta(consulta.Id)">Editar</button>
+                        <button class="btn btn-primary" @onclick="() => ViewConsulta(consulta.Id)">Ver</button>
                         <button class="btn btn-danger" @onclick="() => DeleteConsulta(consulta.Id)">Eliminar</button>
                     </td>
                 </tr>
@@ -97,6 +99,11 @@ else
     private void EditConsulta(int id)
     {
         NavigationManager.NavigateTo($"/consultas/edit/{id}");
+    }
+
+    private void ViewConsulta(int id)
+    {
+        NavigationManager.NavigateTo($"/consultas/ver/{id}");
     }
 
     private async Task DeleteConsulta(int id)

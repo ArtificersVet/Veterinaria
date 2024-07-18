@@ -1,0 +1,78 @@
+﻿@page "/Consultas/ver/{Id:int}"
+
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+
+<h3>Detalles de la Consulta</h3>
+
+@if (consulta == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Consulta #@consulta.Id</h5>
+
+            <p class="card-text">
+                <strong>Fecha de Consulta:</strong> @consulta.FechaConsulta?.ToString("dd/MM/yyyy")
+            </p>
+
+            <p class="card-text">
+                <strong>Cliente:</strong> @(consulta.Cliente?.Nombre + " " + consulta.Cliente?.Apellido)
+            </p>
+
+            <p class="card-text">
+                <strong>Mascota:</strong> @consulta.Mascota?.Nombre (@consulta.Mascota?.Especie)
+            </p>
+
+            <p class="card-text">
+                <strong>Empleado:</strong> @(consulta.Empleado?.Nombre + " " + consulta.Empleado?.Apellido)
+            </p>
+
+            <p class="card-text">
+                <strong>Motivo:</strong> @consulta.Motivo
+            </p>
+
+            <p class="card-text">
+                <strong>Diagnóstico:</strong> @consulta.Diagnostico
+            </p>
+
+            <p class="card-text">
+                <strong>Tratamiento:</strong> @consulta.Tratamiento
+            </p>
+
+            <p class="card-text">
+                <strong>Monto:</strong> @consulta.Monto?.ToString("C")
+            </p>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary mt-3" @onclick="VolverALista">Volver a la Lista</button>
+}
+
+@code {
+    private Consulta consulta;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        consulta = await dbContext.Consultas
+            .Include(c => c.Cliente)
+            .Include(c => c.Mascota)
+            .Include(c => c.Empleado)
+            .FirstOrDefaultAsync(c => c.Id == Id);
+    }
+
+    private void VolverALista()
+    {
+        NavigationManager.NavigateTo("/consultas/index");
+    }
+}
+
