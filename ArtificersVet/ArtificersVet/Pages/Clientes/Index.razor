@@ -57,6 +57,13 @@
                     }
                 </tbody>
             </table>
+            <br />
+            <div class="pagination">
+                <button @onclick="PrevPage" disabled="@(!prevPageEnabled)">Anterior</button>
+                <span>Página @actualPage de @totalPages</span>
+                <button @onclick="NextPage" disabled="@(!nextPageEnabled)">Siguiente</button>
+            </div>
+            <br />
         }
     </div>
 </div>
@@ -64,27 +71,39 @@
 @code {
     private List<Cliente1> clientes;
     private string nombreBusqueda = null;
+    private int actualPage = 1;
+    private int pageCantidadRegistros = 15;
+    private int totalPages = 1;
+    private bool prevPageEnabled => actualPage > 1;
+    private bool nextPageEnabled => actualPage < totalPages;
 
-    /// <summary>
-    /// Carga inicial de los clientes al abrir la página.
-    /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        clientes = await dbContext.Clientes1.ToListAsync();
+        await cargarClientes();
+    }
+
+    private async Task cargarClientes()
+    {
+        var query = dbContext.Clientes1.AsQueryable();
+
+        if (!string.IsNullOrEmpty(nombreBusqueda))
+        {
+            query = query.Where(c => c.Nombre.Contains(nombreBusqueda) || c.Apellido.Contains(nombreBusqueda));
+        }
+
+        var totalItems = await query.CountAsync();
+        totalPages = (int)Math.Ceiling(totalItems / (double)pageCantidadRegistros);
+
+        clientes = await query
+            .Skip((actualPage - 1) * pageCantidadRegistros)
+            .Take(pageCantidadRegistros)
+            .ToListAsync();
     }
 
     private async Task BuscarClientesPorNombre()
     {
-        if (!string.IsNullOrEmpty(nombreBusqueda))
-        {
-            clientes = await dbContext.Clientes1
-                .Where(c => c.Nombre.Contains(nombreBusqueda) || c.Apellido.Contains(nombreBusqueda))
-                .ToListAsync();
-        }
-        else
-        {
-            await OnInitializedAsync();
-        }
+        actualPage = 1;
+        await cargarClientes();
     }
 
     private void AddCliente()
@@ -104,7 +123,25 @@
         {
             dbContext.Clientes1.Remove(cliente);
             await dbContext.SaveChangesAsync();
-            clientes = await dbContext.Clientes1.ToListAsync();
+            await cargarClientes();
+        }
+    }
+
+    private async Task PrevPage()
+    {
+        if (actualPage > 1)
+        {
+            actualPage--;
+            await cargarClientes();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (actualPage < totalPages)
+        {
+            actualPage++;
+            await cargarClientes();
         }
     }
 }
