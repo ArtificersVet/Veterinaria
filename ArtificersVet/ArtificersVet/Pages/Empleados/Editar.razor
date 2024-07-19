@@ -70,10 +70,18 @@ else
 }
 
 @code {
+    /// <summary>
+    /// Declara un parámetro público id que se utiliza para recibir el identificador del empleado desde la URL o un componente padre
+    /// private Empleado empleado, Declara una variable privada empleado que contendrá la información del empleado que se va a actualizar
+    /// </summary>
     [Parameter]
     public int id { get; set; }
     private Empleado empleado;
-
+    /// <summary>
+    /// Sobrescribe el método  que se ejecuta cuando el componente se inicializa.
+    /// Busca el empleado en la base de datos utilizando el id proporcionado y asigna el resultado a la variable.
+    /// </summary>
+    /// <returns>OnInitializedAsync</returns>
     protected override async Task OnInitializedAsync()
     {
         empleado = await dbContext.Empleados.FindAsync(id);
@@ -82,7 +90,10 @@ else
             NavigationManager.NavigateTo("/Empleados/index");
         }
     }
-
+    /// <summary>
+    /// Declara un método asincrónico privado  que se utiliza para actualizar la información del empleado.
+    /// </summary>
+    /// <returns>private async Task ActualizarEmpleado()</returns>
     private async Task ActualizarEmpleado()
     {
         dbContext.Empleados.Update(empleado);

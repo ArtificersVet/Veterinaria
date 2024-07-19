@@ -102,8 +102,14 @@
 </div>
 
 @code {
+    /// <summary>
+    /// proporciona funcionalidad para crear un nuevo empleado en la base de datos
+    /// </summary>
     private Empleado nuevoEmpleado = new Empleado();
-
+    /// <summary>
+    /// se encarga de agregar el nuevo empleado a la base de datos y guardar los cambios
+    /// </summary>
+    /// <returns>private async Task CrearEmpleado()</returns>
     private async Task CrearEmpleado()
     {
         dbContext.Empleados.Add(nuevoEmpleado);

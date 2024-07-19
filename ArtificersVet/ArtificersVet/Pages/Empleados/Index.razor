@@ -83,27 +83,46 @@
 </div>
 
 @code {
+    /// <summary>
+    /// Declara una lista privada que contiene todos los empleados.(private List<Empleado> empleados;)
+    ///  Declara una lista privada que contiene los empleados filtrados según los criterios de búsqueda.( private List<Empleado> empleadosFiltrados;)
+    ///  Declara una variable privada para almacenar el nombre de búsqueda.(private string searchNombre = string.Empty;)
+    ///  Declara una variable privada para almacenar el apellido de búsqueda.(private string searchApellido = string.Empty;)
+    /// </summary>
     private List<Empleado> empleados;
     private List<Empleado> empleadosFiltrados;
     private string searchNombre = string.Empty;
     private string searchApellido = string.Empty;
-
+    /// <summary>
+    /// Sobrescribe el método OnInitializedAsync que se ejecuta cuando el componente se inicializa.
+    ///  // Inicializa la lista de empleados desde la base de datos.
+    /// </summary>
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         empleados = await dbContext.Empleados.ToListAsync();
         empleadosFiltrados = empleados;
     }
-
+    /// <summary>
+    /// Navega a la página de creación de empleados.
+    /// </summary>
     private void AddEmpleado()
     {
         NavigationManager.NavigateTo("/Empleados/crear");
     }
-
+    /// <summary>
+    ///  Navega a la página de edición de un empleado específico.
+    /// </summary>
+    /// <param name="id"></param>
     private void EditEmpleado(int id)
     {
         NavigationManager.NavigateTo($"/Empleados/editar/{id}");
     }
-
+    /// <summary>
+    /// Elimina un empleado de la base de datos y actualiza la lista de empleados.
+    /// </summary>
+    /// <param name="empleadoId"></param>
+    /// <returns></returns>
     private async Task DeleteEmpleado(int empleadoId)
     {
         var empleado = await dbContext.Empleados.FindAsync(empleadoId);
@@ -115,7 +134,9 @@
             empleadosFiltrados = empleados;
         }
     }
-
+    /// <summary>
+    /// Filtra la lista de empleados según los criterios de búsqueda de nombre y apellido.
+    /// </summary>
     private void BuscarEmpleados()
     {
         empleadosFiltrados = empleados.Where(e =>
@@ -123,7 +144,9 @@
             (string.IsNullOrEmpty(searchApellido) || e.Apellido.Equals(searchApellido, StringComparison.OrdinalIgnoreCase))
         ).ToList();
     }
-
+    /// <summary>
+    /// Limpia los criterios de búsqueda y restaura la lista completa de empleados.
+    /// </summary>
     private void LimpiarBusqueda()
     {
         searchNombre = string.Empty;
