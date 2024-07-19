@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArtificersVet.Models
 {
@@ -17,9 +18,19 @@ namespace ArtificersVet.Models
         }
 
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "El nombre del cliente es obligatorio.")]
+        [StringLength(100, ErrorMessage ="El nombre no puede tener más de 100 carcateres.")]
         public string? Nombre { get; set; }
+
+        [Required(ErrorMessage = "El apellido del cliente es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El apellido no puede tener más de 100 carcateres.")]
         public string? Apellido { get; set; }
+
+        [EmailAddress(ErrorMessage ="El email es invalido.")]
         public string? Email { get; set; }
+
+        [Phone(ErrorMessage ="El número de teléfono es inválido.")]
         public string? Telefono { get; set; }
         public string? Direccion { get; set; }
 
