@@ -4,31 +4,24 @@
 @using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
 @inject VeterinariaDbContext dbContext
-@inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
- <div class="container">
-    @* <div class="navbar">
-        <a href="/">Inicio</a>
-        <a href="/empleados">Empleados</a>
-        <a href="/clientes">Clientes</a>
-        <a href="/mascotas">Mascotas</a>
-        <a href="/consultas">Consultas</a>
-    </div> *@
-
+<div class="container">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
     <div class="content">
         <h3>Consultas</h3>
 
         <EditForm Model="@this" OnValidSubmit="BuscarConsultasPorFecha">
-        <button class="btn-create" @onclick="AddConsulta">Nueva Consulta</button>
+
 
             <div class="actions">
-                <label>Fecha de la Consulta</label>
                 <div class="input-group">
+                    <label for="fechaBusqueda">Fecha de la Consulta: </label>
                     <InputDate id="fechaBusqueda" @bind-Value="fechaBusqueda" class="form-control" />
-                    <button class="btn-search" type="submit">Buscar</button><br />
+                    <button class="btn-search" type="submit">Buscar</button>
                 </div>
             </div>
+
         </EditForm>
 
         @if (consultas == null)
@@ -37,8 +30,9 @@
         }
         else
         {
+
             <h3>Listado de Consultas</h3>
-            
+            <button class="btn-create" @onclick="AddConsulta">Nueva Consulta</button>
             <table class="consultas-table">
                 <thead>
                     <tr>
@@ -75,9 +69,8 @@
                 </tbody>
             </table>
         }
-</div>
     </div>
-
+</div>
 
 <style>
     .container {
@@ -94,18 +87,13 @@
         margin-bottom: 20px;
     }
 
-        .navbar a {
-            margin-right: 15px;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
     .content h3 {
+        font-family: "Trirong", serif;
         text-align: center;
     }
 
     .actions {
+        justify-content: end;
         text-align: center;
         margin-bottom: 20px;
     }
@@ -114,17 +102,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 5px; /* Espacio entre los elementos del input-group */
     }
 
     #fechaBusqueda {
-        width: 125px;
-        margin-right: 10px; /* Espacio entre el input y el botón */
-        border-radius: 4%;
+        width: 200px;
     }
 
     .btn-search {
-        background-color: green;
-        color: white;
+        background-color: #ffcc66;
+        color: black;
         padding: 10px;
         border: none;
         border-radius: 10px;
@@ -137,7 +124,8 @@
         text-align: left;
     }
 
-        .consultas-table th, .consultas-table td {
+        .consultas-table th,
+        .consultas-table td {
             padding: 10px;
             border: 1px solid #ddd;
         }
@@ -153,6 +141,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        margin-bottom: 6px;
     }
 
     .btn-edit {
