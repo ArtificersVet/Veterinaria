@@ -42,7 +42,7 @@
             <ValidationMessage For="@(() => cliente.Direccion)" />
         </div>
     </div>
-
+    <br />
     <div>
         <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
         <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
@@ -52,6 +52,10 @@
 @code {
     private Cliente1 cliente = new Cliente1();
 
+    /// <summary>
+    /// Maneja el envío válido del formulario, crea una nueva consulta en la bd.
+    /// muestra una alerta al usuario y redirige a la página principal de clientes.
+    /// </summary>
     private async Task HandleValidSubmit()
     {
         dbContext.Clientes1.Add(cliente);
@@ -60,6 +64,10 @@
         NavigationManager.NavigateTo("/clientes/index");
     }
 
+
+    /// <summary>
+    /// Cancela la creación y redirige a la página principal de clientes.
+    /// </summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/clientes/index");

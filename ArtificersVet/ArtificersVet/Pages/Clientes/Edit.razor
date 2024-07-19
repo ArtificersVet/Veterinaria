@@ -49,7 +49,7 @@ else
                 <ValidationMessage For="@(() => cliente.Direccion)" />
             </div>
         </div>
-
+        <br />
         <div>
             <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
             <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
@@ -59,15 +59,30 @@ else
 
 @code {
     private Cliente1 cliente;
-
+    /// <summary>
+    /// Se declara un parámetro público id que se utiliza para recibir el identificador del cliente 
+    /// y deeclara una variable privada cliente que contendrá la información del  cliente que se va a actualizar
+    /// </summary>
     [Parameter]
     public int Id { get; set; }
 
+
+    /// <summary>
+    /// Sobrescribe el método  que se ejecuta cuando el componente se inicializa.
+    /// Busca al cliente en la BD utilizando el id proporcionado y asigna el 
+    /// resultado a la variable.
+    /// </summary>
+    /// <returns>OnInitializedAsync</returns>
     protected override async Task OnInitializedAsync()
     {
         cliente = await dbContext.Clientes1.FindAsync(Id);
     }
 
+
+    /// <summary>
+    /// Se declara un método asincrónico privado  que se utiliza para actualizar 
+    /// la información del empleado.
+    /// </summary>
     private async Task HandleValidSubmit()
     {
         dbContext.Update(cliente);
