@@ -6,7 +6,35 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-<h3>Editar Consulta</h3>
+<style>
+    body {
+        background-color: #FFFACD; /* Amarillo suave */
+    }
+
+    .form-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .btn-guardar {
+        background-color: black;
+        color: white;
+    }
+
+    .btn-cancelar {
+        background-color: #FFD700; /* Amarillo fuerte */
+        color: black;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<center><h3>Editar Consulta</h3></center>
 
 @if (consulta == null)
 {
@@ -17,75 +45,78 @@ else
     <EditForm Model="@consulta" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
 
-        <div class="form-group">
-            <label for="clienteId">Cliente:</label>
-            <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
-                <option value="">Seleccione un cliente</option>
-                @foreach (var cliente in clientes)
-                {
-                    <option value="@cliente.Id" selected="@(cliente.Id == consulta.ClienteId)">@cliente.Nombre @cliente.Apellido</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => consulta.ClienteId)" />
+        <div class="form-container">
+            <div class="form-group">
+                <label for="clienteId">Cliente:</label>
+                <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
+                    <option value="">Seleccione un cliente</option>
+                    @foreach (var cliente in clientes)
+                    {
+                        <option value="@cliente.Id" selected="@(cliente.Id == consulta.ClienteId)">@cliente.Nombre @cliente.Apellido</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => consulta.ClienteId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="mascotaId">Mascota:</label>
+                <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
+                    <option value="">Seleccione una mascota</option>
+                    @foreach (var mascota in mascotas)
+                    {
+                        <option value="@mascota.Id" selected="@(mascota.Id == consulta.MascotaId)">@mascota.Nombre (@mascota.Especie)</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => consulta.MascotaId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="empleadoId">Empleado:</label>
+                <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
+                    <option value="">Seleccione un empleado</option>
+                    @foreach (var empleado in empleados)
+                    {
+                        <option value="@empleado.Id" selected="@(empleado.Id == consulta.EmpleadoId)">@empleado.Nombre @empleado.Apellido</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => consulta.EmpleadoId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="fechaConsulta">Fecha de Consulta:</label>
+                <InputDate id="fechaConsulta" @bind-Value="consulta.FechaConsulta" class="form-control" />
+                <ValidationMessage For="@(() => consulta.FechaConsulta)" />
+            </div>
+
+            <div class="form-group">
+                <label for="motivo">Motivo:</label>
+                <InputText id="motivo" @bind-Value="consulta.Motivo" class="form-control" />
+                <ValidationMessage For="@(() => consulta.Motivo)" />
+            </div>
+
+            <div class="form-group">
+                <label for="diagnostico">Diagnóstico:</label>
+                <InputTextArea id="diagnostico" @bind-Value="consulta.Diagnostico" class="form-control" />
+                <ValidationMessage For="@(() => consulta.Diagnostico)" />
+            </div>
+
+            <div class="form-group">
+                <label for="tratamiento">Tratamiento:</label>
+                <InputTextArea id="tratamiento" @bind-Value="consulta.Tratamiento" class="form-control" />
+                <ValidationMessage For="@(() => consulta.Tratamiento)" />
+            </div>
+
+            <div class="form-group">
+                <label for="monto">Monto:</label>
+                <InputNumber id="monto" @bind-Value="consulta.Monto" class="form-control" />
+                <ValidationMessage For="@(() => consulta.Monto)" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="mascotaId">Mascota:</label>
-            <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
-                <option value="">Seleccione una mascota</option>
-                @foreach (var mascota in mascotas)
-                {
-                    <option value="@mascota.Id" selected="@(mascota.Id == consulta.MascotaId)">@mascota.Nombre (@mascota.Especie)</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => consulta.MascotaId)" />
+        <div>
+            <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+            <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
         </div>
-
-        <div class="form-group">
-            <label for="empleadoId">Empleado:</label>
-            <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
-                <option value="">Seleccione un empleado</option>
-                @foreach (var empleado in empleados)
-                {
-                    <option value="@empleado.Id" selected="@(empleado.Id == consulta.EmpleadoId)">@empleado.Nombre @empleado.Apellido</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => consulta.EmpleadoId)" />
-        </div>
-
-
-        <div class="form-group">
-            <label for="fechaConsulta">Fecha de Consulta:</label>
-            <InputDate id="fechaConsulta" @bind-Value="consulta.FechaConsulta" class="form-control" />
-            <ValidationMessage For="@(() => consulta.FechaConsulta)" />
-        </div>
-
-        <div class="form-group">
-            <label for="motivo">Motivo:</label>
-            <InputText id="motivo" @bind-Value="consulta.Motivo" class="form-control" />
-            <ValidationMessage For="@(() => consulta.Motivo)" />
-        </div>
-
-        <div class="form-group">
-            <label for="diagnostico">Diagnóstico:</label>
-            <InputTextArea id="diagnostico" @bind-Value="consulta.Diagnostico" class="form-control" />
-            <ValidationMessage For="@(() => consulta.Diagnostico)" />
-        </div>
-
-        <div class="form-group">
-            <label for="tratamiento">Tratamiento:</label>
-            <InputTextArea id="tratamiento" @bind-Value="consulta.Tratamiento" class="form-control" />
-            <ValidationMessage For="@(() => consulta.Tratamiento)" />
-        </div>
-
-        <div class="form-group">
-            <label for="monto">Monto:</label>
-            <InputNumber id="monto" @bind-Value="consulta.Monto" class="form-control" />
-            <ValidationMessage For="@(() => consulta.Monto)" />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
     </EditForm>
 }
 
@@ -127,4 +158,3 @@ else
         NavigationManager.NavigateTo("/consultas/index");
     }
 }
-

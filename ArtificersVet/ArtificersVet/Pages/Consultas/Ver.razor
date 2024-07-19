@@ -6,6 +6,49 @@
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
 
+<style>
+    body {
+        background-color: #FFFACD; /* Amarillo suave */
+    }
+
+    .card {
+        margin: 18px;
+        padding: 18px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-volver {
+        background-color: #FFD700; /* Amarillo fuerte */
+        color: black;
+        border: none;
+        padding: 10px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-volver:hover {
+            background-color: #FFC300; /* Amarillo más fuerte */
+        }
+
+    h3 {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 24px;
+    }
+
+    .card-body {
+        font-size: 16px;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+
 <h3>Detalles de la Consulta</h3>
 
 @if (consulta == null)
@@ -52,7 +95,7 @@ else
         </div>
     </div>
 
-    <button class="btn btn-secondary mt-3" @onclick="VolverALista">Volver a la Lista</button>
+    <button class="btn btn-secondary btn-volver mt-3" @onclick="VolverALista">Volver a la Lista</button>
 }
 
 @code {
@@ -75,4 +118,3 @@ else
         NavigationManager.NavigateTo("/consultas/index");
     }
 }
-
