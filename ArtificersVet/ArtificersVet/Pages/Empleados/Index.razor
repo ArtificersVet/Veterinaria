@@ -182,19 +182,19 @@
     /// <summary>
     /// Filtra la lista de empleados según los criterios de búsqueda de nombre y apellido.
     /// </summary>
+    ///  private void BuscarEmpleados()
     private void BuscarEmpleados()
     {
-        empleadosFiltrados = empleados.Where(e =>
-            (string.IsNullOrEmpty(searchNombre) || e.Nombre.Contains(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
-            (string.IsNullOrEmpty(searchApellido) || e.Apellido.Contains(searchApellido, StringComparison.OrdinalIgnoreCase))
-        ).ToList();
-        paginaActual = 1; // Reset to the first page
-        ActualizarPagina();
+    empleadosFiltrados = empleados.Where(e =>
+        (string.IsNullOrEmpty(searchNombre) || e.Nombre.Equals(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
+        (string.IsNullOrEmpty(searchApellido) || e.Apellido.Equals(searchApellido, StringComparison.OrdinalIgnoreCase))
+    ).ToList();
+    paginaActual = 1; // Reset to the first page
+    ActualizarPagina();
     }
     /// <summary>
     /// Limpia los criterios de búsqueda y restaura la lista completa de empleados.
     /// </summary>
-
     private void LimpiarBusqueda()
     {
         searchNombre = string.Empty;
@@ -203,6 +203,7 @@
         paginaActual = 1; // Reset to the first page
         ActualizarPagina();
     }
+
     /// <summary>
     /// Actualiza la lista de empleados mostrados en la página actual
     /// </summary>
