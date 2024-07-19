@@ -1,0 +1,87 @@
+﻿@page "/clientes/edit/{Id:int}"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<center><h3>Editar Cliente</h3></center>
+
+@if (cliente == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <EditForm Model="cliente" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <InputText id="nombre" @bind-Value="cliente.Nombre" class="form-control" />
+                <ValidationMessage For="@(() => cliente.Nombre)" />
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <InputText id="apellido" @bind-Value="cliente.Apellido" class="form-control" />
+                <ValidationMessage For="@(() => cliente.Apellido)" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <InputText id="email" @bind-Value="cliente.Email" class="form-control" />
+                <ValidationMessage For="@(() => cliente.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <InputText id="telefono" @bind-Value="cliente.Telefono" class="form-control" />
+                <ValidationMessage For="@(() => cliente.Telefono)" />
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <InputText id="direccion" @bind-Value="cliente.Direccion" class="form-control" />
+                <ValidationMessage For="@(() => cliente.Direccion)" />
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+            <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    private Cliente1 cliente;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        cliente = await dbContext.Clientes1.FindAsync(Id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        dbContext.Update(cliente);
+        int result = await dbContext.SaveChangesAsync();
+        if (result != 0)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Los datos se modificaron correctamente");
+            NavigationManager.NavigateTo("/clientes/index");
+        }
+    }
+
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/clientes/index");
+    }
+}
+
