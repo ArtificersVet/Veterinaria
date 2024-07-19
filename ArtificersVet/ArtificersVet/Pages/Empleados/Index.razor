@@ -26,27 +26,22 @@
     }
     else
     {
-        <div class="mb-3">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
             <button class="btn btn-success" @onclick="AddEmpleado">Nuevo Empleado</button>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-auto">
-                <label for="nombre">Nombre</label>
-                <input id="nombre" class="form-control form-control-sm" @bind="searchNombre" style="width: 150px;" />
-            </div>
-            <div class="col-auto">
-                <label for="apellido">Apellido</label>
-                <input id="apellido" class="form-control form-control-sm" @bind="searchApellido" style="width: 150px;" />
-            </div>
-            <div class="col-auto align-self-end">
+            <div class="d-flex align-items-center">
+                <div class="input-group me-2">
+                    <input id="nombre" class="form-control form-control-sm" placeholder="Nombre" value="@searchNombre" @oninput="e => searchNombre = e.Value.ToString()" />
+                </div>
+                <div class="input-group me-2">
+                    <input id="apellido" class="form-control form-control-sm" placeholder="Apellido" value="@searchApellido" @oninput="e => searchApellido = e.Value.ToString()" />
+                </div>
                 <button class="btn btn-primary btn-sm" @onclick="BuscarEmpleados">Buscar</button>
                 <button class="btn btn-secondary btn-sm ms-2" @onclick="LimpiarBusqueda">Limpiar</button>
             </div>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead class="table-dark">
                     <tr>
                         <th>Nombre</th>
@@ -61,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var empleado in empleadosFiltrados)
+                    @foreach (var empleado in empleadosPaginaActual)
                     {
                         <tr>
                             <td>@empleado.Nombre</td>
@@ -81,6 +76,22 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+                <button class="btn btn-secondary btn-sm" @onclick="PreviousPage" disabled="@(paginaActual == 1)">Anterior</button>
+                <span class="mx-2">Página @paginaActual de @totalPaginas</span>
+                <button class="btn btn-secondary btn-sm" @onclick="NextPage" disabled="@(paginaActual == totalPaginas)">Siguiente</button>
+            </div>
+            <div>
+                <label for="itemsPerPage" class="form-label">Items por Página:</label>
+                <select id="itemsPerPage" class="form-select form-select-sm" @onchange="OnItemsPerPageChange">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+        </div>
     }
 </div>
 
@@ -91,23 +102,34 @@
     ///  Declara una variable privada para almacenar el nombre de búsqueda.(private string searchNombre = string.Empty;)
     ///  Declara una variable privada para almacenar el apellido de búsqueda.(private string searchApellido = string.Empty;)
     /// </summary>
+
     private List<Empleado> empleados;
     private List<Empleado> empleadosFiltrados;
+    private List<Empleado> empleadosPaginaActual;
     private string searchNombre = string.Empty;
     private string searchApellido = string.Empty;
+    /// <summary>
+    /// Variables de paginación
+    /// </summary>
+    private int paginaActual = 1;
+    private int itemsPorPagina = 10;
+    private int totalPaginas => (int)Math.Ceiling((double)empleadosFiltrados.Count / itemsPorPagina);
     /// <summary>
     /// Sobrescribe el método OnInitializedAsync que se ejecuta cuando el componente se inicializa.
     ///  // Inicializa la lista de empleados desde la base de datos.
     /// </summary>
     /// <returns></returns>
+
     protected override async Task OnInitializedAsync()
     {
         empleados = await dbContext.Empleados.ToListAsync();
         empleadosFiltrados = empleados;
+        ActualizarPagina();
     }
     /// <summary>
     /// Navega a la página de creación de empleados.
     /// </summary>
+
     private void AddEmpleado()
     {
         NavigationManager.NavigateTo("/Empleados/crear");
@@ -116,6 +138,7 @@
     ///  Navega a la página de edición de un empleado específico.
     /// </summary>
     /// <param name="id"></param>
+
     private void EditEmpleado(int id)
     {
         NavigationManager.NavigateTo($"/Empleados/editar/{id}");
@@ -125,6 +148,7 @@
     /// </summary>
     /// <param name="empleadoId"></param>
     /// <returns></returns>
+
     private async Task DeleteEmpleado(int empleadoId)
     {
         var empleado = await dbContext.Empleados.FindAsync(empleadoId);
@@ -150,28 +174,76 @@
                     dbContext.Empleados.Remove(empleado);
                     await dbContext.SaveChangesAsync();
                     empleados.Remove(empleado);
+                    ActualizarPagina();
                 }
             }
         }
     }
-
     /// <summary>
     /// Filtra la lista de empleados según los criterios de búsqueda de nombre y apellido.
     /// </summary>
     private void BuscarEmpleados()
     {
         empleadosFiltrados = empleados.Where(e =>
-            (string.IsNullOrEmpty(searchNombre) || e.Nombre.Equals(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
-            (string.IsNullOrEmpty(searchApellido) || e.Apellido.Equals(searchApellido, StringComparison.OrdinalIgnoreCase))
+            (string.IsNullOrEmpty(searchNombre) || e.Nombre.Contains(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(searchApellido) || e.Apellido.Contains(searchApellido, StringComparison.OrdinalIgnoreCase))
         ).ToList();
+        paginaActual = 1; // Reset to the first page
+        ActualizarPagina();
     }
     /// <summary>
     /// Limpia los criterios de búsqueda y restaura la lista completa de empleados.
     /// </summary>
+
     private void LimpiarBusqueda()
     {
         searchNombre = string.Empty;
         searchApellido = string.Empty;
         empleadosFiltrados = empleados;
+        paginaActual = 1; // Reset to the first page
+        ActualizarPagina();
+    }
+    /// <summary>
+    /// Actualiza la lista de empleados mostrados en la página actual
+    /// </summary>
+    private void ActualizarPagina()
+    {
+        empleadosPaginaActual = empleadosFiltrados
+            .Skip((paginaActual - 1) * itemsPorPagina)
+            .Take(itemsPorPagina)
+            .ToList();
+    }
+    /// <summary>
+    /// Cambia a la página anterior si es posible
+    /// </summary>
+    private void PreviousPage()
+    {
+        if (paginaActual > 1)
+        {
+            paginaActual--;
+            ActualizarPagina();
+        }
+    }
+    /// <summary>
+    /// Cambia a la página siguiente si es posible
+    /// </summary>
+    private void NextPage()
+    {
+        if (paginaActual < totalPaginas)
+        {
+            paginaActual++;
+            ActualizarPagina();
+        }
+    }
+    /// <summary>
+    ///  Calcula los empleados a mostrar en la página actual y permite actualizar la página y el número de ítems por página.
+    ///  Cambia el número de ítems por página y reinicia la página a la primera
+    /// </summary>
+    /// <param name="e"></param>
+    private void OnItemsPerPageChange(ChangeEventArgs e)
+    {
+        itemsPorPagina = int.Parse(e.Value.ToString());
+        paginaActual = 1; // Reset to the first page
+        ActualizarPagina();
     }
 }
