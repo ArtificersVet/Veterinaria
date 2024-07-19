@@ -2,8 +2,10 @@
 @using ArtificersVet.Models
 @using ArtificersVet.Data
 @using Microsoft.EntityFrameworkCore
+@using System.Text.Json
 @inject VeterinariaDbContext dbContext
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <div class="container mt-4">
     <h3 class="mb-4">Gestión de Empleados</h3>
@@ -128,12 +130,31 @@
         var empleado = await dbContext.Empleados.FindAsync(empleadoId);
         if (empleado != null)
         {
-            dbContext.Empleados.Remove(empleado);
-            await dbContext.SaveChangesAsync();
-            empleados = await dbContext.Empleados.ToListAsync();
-            empleadosFiltrados = empleados;
+            var result = await JSRuntime.InvokeAsync<object>("Swal.fire", new
+            {
+                title = "¿Estás seguro?",
+                text = $"¿Estás seguro de que quieres eliminar a {empleado.Nombre} {empleado.Apellido}?",
+                icon = "warning",
+                showCancelButton = true,
+                confirmButtonColor = "#dc3545",
+                confirmButtonText = "Sí, eliminar",
+                cancelButtonText = "Cancelar"
+            });
+
+            if (result is JsonElement jsonResult && jsonResult.TryGetProperty("isConfirmed", out var isConfirmed))
+            {
+                if (isConfirmed.GetBoolean())
+                {
+                    var consultas = await dbContext.Consultas.Where(c => c.EmpleadoId == empleadoId).ToListAsync();
+                    dbContext.Consultas.RemoveRange(consultas);
+                    dbContext.Empleados.Remove(empleado);
+                    await dbContext.SaveChangesAsync();
+                    empleados.Remove(empleado);
+                }
+            }
         }
     }
+
     /// <summary>
     /// Filtra la lista de empleados según los criterios de búsqueda de nombre y apellido.
     /// </summary>
