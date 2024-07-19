@@ -1,0 +1,146 @@
+﻿@page "/Mascotas/index"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager NavigationManager
+@inject VeterinariaDbContext dbContext
+@inject IJSRuntime JSRuntime
+
+<div class="container">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <div class="content">
+        <h3>Mascotas</h3>
+        <EditForm Model="@this" OnValidSubmit="BuscarMascotasPorNombre">
+            <div class="actions">
+                <div class="input-group">
+                    <label for="nombreBusqueda">Nombre de la Mascota: </label>
+                    <InputText id="nombreBusqueda" @bind-Value="nombreBusqueda" class="form-control" />
+                    <button class="btn-search" type="submit">Buscar</button>
+                </div>
+            </div>
+        </EditForm>
+        @if (mascotas == null)
+        {
+            <p><em>Cargando...</em></p>
+        }
+        else
+        {
+            <h3>Listado de Mascotas</h3>
+            <button class="btn-create" @onclick="AddMascota">Nueva Mascota</button>
+            <table class="mascotas-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especie</th>
+                        <th>Raza</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var mascota in mascotas)
+                    {
+                        <tr>
+                            <td>@mascota.Nombre</td>
+                            <td>@mascota.Especie</td>
+                            <td>@mascota.Raza</td>
+                            <td>@mascota.Edad</td>
+                            <td>@mascota.Sexo</td>
+                            <td>
+                                <button class="btn-edit" @onclick="() => EditMascota(mascota.Id)">Modificar</button>
+                                <button class="btn-delete" @onclick="() => DeleteMascota(mascota.Id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <div class="pagination">
+                <button @onclick="PrevPage" disabled="@(!prevPageEnabled)">Anterior</button>
+                <span>Página @actualPage de @totalPages</span>
+                <button @onclick="NextPage" disabled="@(!nextPageEnabled)">Siguiente</button>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+@code {
+    private List<Mascota1> mascotas;
+    private string nombreBusqueda = null;
+    private int actualPage = 1;
+    private int pageCantidadRegistros = 15;
+    private int totalPages = 1;
+    private bool prevPageEnabled => actualPage > 1;
+    private bool nextPageEnabled => actualPage < totalPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        mascotas = await dbContext.Mascotas1.ToListAsync();
+        await cargarMascotas();
+    }
+
+    private async Task BuscarMascotasPorNombre()
+    {
+        actualPage = 1;
+        await cargarMascotas();
+    }
+
+    private async Task cargarMascotas()
+    {
+        var query = dbContext.Mascotas1.AsQueryable();
+
+        if (!string.IsNullOrEmpty(nombreBusqueda))
+        {
+            query = query.Where(m => m.Nombre.Contains(nombreBusqueda));
+        }
+
+        var totalItems = await query.CountAsync();
+        totalPages = (int)Math.Ceiling(totalItems / (double)pageCantidadRegistros);
+
+        mascotas = await query
+            .Skip((actualPage - 1) * pageCantidadRegistros)
+            .Take(pageCantidadRegistros)
+            .ToListAsync();
+    }
+
+    private void AddMascota()
+    {
+        NavigationManager.NavigateTo("/Mascotas/create");
+    }
+
+    private void EditMascota(int id)
+    {
+        NavigationManager.NavigateTo($"/Mascotas/edit/{id}");
+    }
+
+    private async Task DeleteMascota(int id)
+    {
+        var mascota = await dbContext.Mascotas1.FindAsync(id);
+        if (mascota != null)
+        {
+            dbContext.Mascotas1.Remove(mascota);
+            await dbContext.SaveChangesAsync();
+            await cargarMascotas();
+        }
+    }
+
+    private async Task PrevPage()
+    {
+        if (actualPage > 1)
+        {
+            actualPage--;
+            await cargarMascotas();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (actualPage < totalPages)
+        {
+            actualPage++;
+            await cargarMascotas();
+        }
+    }
+}
