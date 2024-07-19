@@ -104,6 +104,9 @@ else
     [Parameter]
     public int Id { get; set; }
 
+    /// <summary>
+    /// Carga la consulta cuando se inicializa la página.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         consulta = await dbContext.Consultas
@@ -113,6 +116,9 @@ else
             .FirstOrDefaultAsync(c => c.Id == Id);
     }
 
+    /// <summary>
+    /// Redirige a la página principal de consultas cuando se hace clic en "Volver a la Lista".
+    /// </summary>
     private void VolverALista()
     {
         NavigationManager.NavigateTo("/consultas/index");

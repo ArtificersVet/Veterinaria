@@ -23,7 +23,6 @@
             </div>
 
         </EditForm>
-
         @if (consultas == null)
         {
             <p><em>Cargando...</em></p>
@@ -175,6 +174,10 @@
     private List<Consulta> consultas;
     private DateTime? fechaBusqueda = null;
 
+    /// <summary>
+    /// Carga inicial de las consultas al abrir la página.
+    /// Incluye relaciones con Cliente, Empleado y Mascota.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         consultas = await dbContext.Consultas
@@ -184,6 +187,10 @@
             .ToListAsync();
     }
 
+    /// <summary>
+    /// Busca y filtra las consultas por la fecha especificada.
+    /// Si no se proporciona una fecha, carga todas las consultas.
+    /// </summary>
     private async Task BuscarConsultasPorFecha()
     {
         if (fechaBusqueda.HasValue)
@@ -202,21 +209,37 @@
         }
     }
 
+    /// <summary>
+    /// Redirige a la página de creación de una nueva consulta.
+    /// </summary>
     private void AddConsulta()
     {
         NavigationManager.NavigateTo("/consultas/create");
     }
 
+    /// <summary>
+    /// Redirige a la página de edición de una consulta existente, identificada por su ID.
+    /// </summary>
+    /// <param name="id">ID de la consulta a editar.</param>
     private void EditConsulta(int id)
     {
         NavigationManager.NavigateTo($"/consultas/edit/{id}");
     }
 
+    /// <summary>
+    /// Redirige a la página de visualización de una consulta existente, identificada por su ID.
+    /// </summary>
+    /// <param name="id">ID de la consulta a ver.</param>
     private void ViewConsulta(int id)
     {
         NavigationManager.NavigateTo($"/consultas/ver/{id}");
     }
 
+    /// <summary>
+    /// Elimina una consulta de la base de datos después de confirmar con el usuario.
+    /// Recarga la lista de consultas para reflejar los cambios.
+    /// </summary>
+    /// <param name="id">ID de la consulta a eliminar.</param>
     private async Task DeleteConsulta(int id)
     {
         var consulta = await dbContext.Consultas.FindAsync(id);

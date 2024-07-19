@@ -1,5 +1,6 @@
 ﻿@page "/consultas/edit/{Id:int}"
 @using ArtificersVet.Models
+
 @using ArtificersVet.Data
 @using Microsoft.EntityFrameworkCore
 @inject VeterinariaDbContext dbContext
@@ -45,30 +46,28 @@ else
     <EditForm Model="@consulta" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
 
-        <div class="form-container">
-            <div class="form-group">
-                <label for="clienteId">Cliente:</label>
-                <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
-                    <option value="">Seleccione un cliente</option>
-                    @foreach (var cliente in clientes)
-                    {
-                        <option value="@cliente.Id" selected="@(cliente.Id == consulta.ClienteId)">@cliente.Nombre @cliente.Apellido</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() => consulta.ClienteId)" />
-            </div>
-
-            <div class="form-group">
-                <label for="mascotaId">Mascota:</label>
-                <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
-                    <option value="">Seleccione una mascota</option>
-                    @foreach (var mascota in mascotas)
-                    {
-                        <option value="@mascota.Id" selected="@(mascota.Id == consulta.MascotaId)">@mascota.Nombre (@mascota.Especie)</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() => consulta.MascotaId)" />
-            </div>
+        <div class="form-group">
+            <label for="clienteId">Cliente:</label>
+            <InputSelect id="clienteId" @bind-Value="consulta.ClienteId" class="form-control">
+                <option value="">Seleccione un cliente</option>
+                @foreach (var cliente in clientes)
+                {
+                    <option value="@cliente.Id" selected="@(cliente.Id == consulta.ClienteId)">@cliente.Nombre @cliente.Apellido</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => consulta.ClienteId)" />
+        </div>
+        <div class="form-group">
+            <label for="mascotaId">Mascota:</label>
+            <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
+                <option value="">Seleccione una mascota</option>
+                @foreach (var mascota in mascotas)
+                {
+                    <option value="@mascota.Id" selected="@(mascota.Id == consulta.MascotaId)">@mascota.Nombre (@mascota.Especie)</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => consulta.MascotaId)" />
+        </div>
 
             <div class="form-group">
                 <label for="empleadoId">Empleado:</label>
@@ -129,6 +128,9 @@ else
     [Parameter]
     public int Id { get; set; }
 
+    /// <summary>
+    /// Carga la consulta y las listas de clientes, mascotas y empleados cuando se inicializa la página.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         consulta = await dbContext.Consultas
@@ -142,6 +144,10 @@ else
         empleados = await dbContext.Empleados.ToListAsync();
     }
 
+    /// <summary>
+    /// Maneja el envío válido del formulario, actualiza la consulta en la base de datos.
+    /// Muestra una alerta al usuario y redirige a la página principal de consultas.
+    /// </summary>
     private async Task HandleValidSubmit()
     {
         dbContext.Update(consulta);
@@ -153,6 +159,9 @@ else
         }
     }
 
+    /// <summary>
+    /// Cancela la edición y redirige a la página principal de consultas.
+    /// </summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/consultas/index");

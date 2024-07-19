@@ -8,7 +8,7 @@
 
 <style>
     body {
-        background-color: #FFFACD; /* Amarillo suave */
+        background-color: #FFFACD; 
     }
 
     .form-container {
@@ -59,8 +59,10 @@
             <label for="mascotaId">Mascota:</label>
             <InputSelect id="mascotaId" @bind-Value="consulta.MascotaId" class="form-control">
                 <option value="">Seleccione una mascota</option>
-                @if (mascotas != null) // Chequeo condicional
+               
+                @if (mascotas != null) //Chequeo condicional
                 {
+                    
                     @foreach (var mascota in mascotas)
                     {
                         <option value="@mascota.Id">@mascota.Nombre (@mascota.Especie)</option>
@@ -128,6 +130,9 @@
     private List<Mascota1> mascotas;
     private List<Empleado> empleados;
 
+    /// <summary>
+    /// Carga las listas de clientes, mascotas y empleados cuando se inicializa la página.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         clientes = await dbContext.Clientes1.ToListAsync();
@@ -135,6 +140,10 @@
         empleados = await dbContext.Empleados.ToListAsync();
     }
 
+    /// <summary>
+    /// Maneja el envío válido del formulario, crea una nueva consulta en la base de datos.
+    /// Muestra una alerta al usuario y redirige a la página principal de consultas.
+    /// </summary>
     private async Task HandleValidSubmit()
     {
         dbContext.Consultas.Add(consulta);
@@ -143,6 +152,9 @@
         NavigationManager.NavigateTo("/consultas/index");
     }
 
+    /// <summary>
+    /// Cancela la creación y redirige a la página principal de consultas.
+    /// </summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/consultas/index");
