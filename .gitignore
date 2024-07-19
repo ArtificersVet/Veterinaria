@@ -1,0 +1,5 @@
+# Ignore Visual Studio temporary files, build results, and
+# Include if you have a solution file that shares these paths
+.vs/
+bin/
+obj/
