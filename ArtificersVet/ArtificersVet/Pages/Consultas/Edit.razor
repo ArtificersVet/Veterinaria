@@ -43,8 +43,9 @@
 }
 else
 {
-    <EditForm Model="@consulta" OnValidSubmit="HandleValidSubmit">
+    <EditForm Model="consulta" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="form-group">
             <label for="clienteId">Cliente:</label>
@@ -68,48 +69,41 @@ else
             </InputSelect>
             <ValidationMessage For="@(() => consulta.MascotaId)" />
         </div>
-
-            <div class="form-group">
-                <label for="empleadoId">Empleado:</label>
-                <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
-                    <option value="">Seleccione un empleado</option>
-                    @foreach (var empleado in empleados)
-                    {
-                        <option value="@empleado.Id" selected="@(empleado.Id == consulta.EmpleadoId)">@empleado.Nombre @empleado.Apellido</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() => consulta.EmpleadoId)" />
-            </div>
-
-            <div class="form-group">
-                <label for="fechaConsulta">Fecha de Consulta:</label>
-                <InputDate id="fechaConsulta" @bind-Value="consulta.FechaConsulta" class="form-control" />
-                <ValidationMessage For="@(() => consulta.FechaConsulta)" />
-            </div>
-
-            <div class="form-group">
-                <label for="motivo">Motivo:</label>
-                <InputText id="motivo" @bind-Value="consulta.Motivo" class="form-control" />
-                <ValidationMessage For="@(() => consulta.Motivo)" />
-            </div>
-
-            <div class="form-group">
-                <label for="diagnostico">Diagnóstico:</label>
-                <InputTextArea id="diagnostico" @bind-Value="consulta.Diagnostico" class="form-control" />
-                <ValidationMessage For="@(() => consulta.Diagnostico)" />
-            </div>
-
-            <div class="form-group">
-                <label for="tratamiento">Tratamiento:</label>
-                <InputTextArea id="tratamiento" @bind-Value="consulta.Tratamiento" class="form-control" />
-                <ValidationMessage For="@(() => consulta.Tratamiento)" />
-            </div>
-
-            <div class="form-group">
-                <label for="monto">Monto:</label>
-                <InputNumber id="monto" @bind-Value="consulta.Monto" class="form-control" />
-                <ValidationMessage For="@(() => consulta.Monto)" />
-            </div>
+        <div class="form-group">
+            <label for="empleadoId">Empleado:</label>
+            <InputSelect id="empleadoId" @bind-Value="consulta.EmpleadoId" class="form-control">
+                <option value="">Seleccione un empleado</option>
+                @foreach (var empleado in empleados)
+                {
+                    <option value="@empleado.Id" selected="@(empleado.Id == consulta.EmpleadoId)">@empleado.Nombre @empleado.Apellido</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => consulta.EmpleadoId)" />
+        </div>
+        <div class="form-group">
+            <label for="fechaConsulta">Fecha de Consulta:</label>
+            <InputDate id="fechaConsulta" @bind-Value="consulta.FechaConsulta" class="form-control" />
+            <ValidationMessage For="@(() => consulta.FechaConsulta)" />
+        </div>
+        <div class="form-group">
+            <label for="motivo">Motivo:</label>
+            <InputText id="motivo" @bind-Value="consulta.Motivo" class="form-control" />
+            <ValidationMessage For="@(() => consulta.Motivo)" />
+        </div>
+        <div class="form-group">
+            <label for="diagnostico">Diagnóstico:</label>
+            <InputTextArea id="diagnostico" @bind-Value="consulta.Diagnostico" class="form-control" />
+            <ValidationMessage For="@(() => consulta.Diagnostico)" />
+        </div>
+        <div class="form-group">
+            <label for="tratamiento">Tratamiento:</label>
+            <InputTextArea id="tratamiento" @bind-Value="consulta.Tratamiento" class="form-control" />
+            <ValidationMessage For="@(() => consulta.Tratamiento)" />
+        </div>
+        <div class="form-group">
+            <label for="monto">Monto:</label>
+            <InputNumber id="monto" @bind-Value="consulta.Monto" class="form-control" />
+            <ValidationMessage For="@(() => consulta.Monto)" />
         </div>
 
         <div>
@@ -128,9 +122,6 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    /// <summary>
-    /// Carga la consulta y las listas de clientes, mascotas y empleados cuando se inicializa la página.
-    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         consulta = await dbContext.Consultas
@@ -144,10 +135,6 @@ else
         empleados = await dbContext.Empleados.ToListAsync();
     }
 
-    /// <summary>
-    /// Maneja el envío válido del formulario, actualiza la consulta en la base de datos.
-    /// Muestra una alerta al usuario y redirige a la página principal de consultas.
-    /// </summary>
     private async Task HandleValidSubmit()
     {
         dbContext.Update(consulta);
@@ -159,9 +146,6 @@ else
         }
     }
 
-    /// <summary>
-    /// Cancela la edición y redirige a la página principal de consultas.
-    /// </summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/consultas/index");
