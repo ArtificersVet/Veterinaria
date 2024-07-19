@@ -1,0 +1,110 @@
+﻿@page "/Clientes/index"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager NavigationManager
+@inject VeterinariaDbContext dbContext
+@inject IJSRuntime JSRuntime
+
+<div class="container">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <div class="content">
+        <h3>Clientes</h3>
+
+        <EditForm Model="@this" OnValidSubmit="BuscarClientesPorNombre">
+            <div class="actions">
+                <div class="input-group">
+                    <label for="nombreBusqueda">Nombre del Cliente: </label>
+                    <InputText id="nombreBusqueda" @bind-Value="nombreBusqueda" class="form-control" />
+                    <button class="btn-search" type="submit">Buscar</button>
+                </div>
+            </div>
+        </EditForm>
+
+        @if (clientes == null)
+        {
+            <p><em>Cargando...</em></p>
+        }
+        else
+        {
+            <h3>Listado de Clientes</h3>
+            <button class="btn-create" @onclick="AddCliente">Nuevo Cliente</button>
+            <table class="clientes-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cliente in clientes)
+                    {
+                        <tr>
+                            <td>@cliente.Nombre</td>
+                            <td>@cliente.Apellido</td>
+                            <td>@cliente.Email</td>
+                            <td>@cliente.Telefono</td>
+                            <td>@cliente.Direccion</td>
+                            <td>
+                                <button class="btn-edit" @onclick="() => EditCliente(cliente.Id)">Modificar</button>
+                                <button class="btn-delete" @onclick="() => DeleteCliente(cliente.Id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code {
+    private List<Cliente1> clientes;
+    private string nombreBusqueda = null;
+
+    /// <summary>
+    /// Carga inicial de los clientes al abrir la página.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await dbContext.Clientes1.ToListAsync();
+    }
+
+    private async Task BuscarClientesPorNombre()
+    {
+        if (!string.IsNullOrEmpty(nombreBusqueda))
+        {
+            clientes = await dbContext.Clientes1
+                .Where(c => c.Nombre.Contains(nombreBusqueda) || c.Apellido.Contains(nombreBusqueda))
+                .ToListAsync();
+        }
+        else
+        {
+            await OnInitializedAsync();
+        }
+    }
+
+    private void AddCliente()
+    {
+        NavigationManager.NavigateTo("/clientes/create");
+    }
+
+    private void EditCliente(int id)
+    {
+        NavigationManager.NavigateTo($"/clientes/edit/{id}");
+    }
+
+    private async Task DeleteCliente(int id)
+    {
+        var cliente = await dbContext.Clientes1.FindAsync(id);
+        if (cliente != null && await JSRuntime.InvokeAsync<bool>("confirm", new object?[] { $"¿Estás seguro de eliminar el cliente {cliente.Nombre}?" }))
+        {
+            dbContext.Clientes1.Remove(cliente);
+            await dbContext.SaveChangesAsync();
+            clientes = await dbContext.Clientes1.ToListAsync();
+        }
+    }
+}
