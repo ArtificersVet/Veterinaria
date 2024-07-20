@@ -11,11 +11,11 @@
     /* General Styles */
     body {
         font-family: sans-serif;
-        background-color: #f0e68c; 
+        background-color: #f0e68c;
     }
 
     .container {
-        max-width: 90%; 
+        max-width: 90%;
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;
@@ -29,32 +29,19 @@
         margin-bottom: 20px;
     }
 
-   
-    
+    .input-group .form-control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
-        .header-section button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-            /* Botón "Crear nuevo empleado" */
-            .header-section button:first-child { /* Selecciona el primer botón */
-                background-color: #000; /* Negro */
-                color: #fff; /* Blanco */
-            }
-
-            /* Botón "Buscar" */
-            .header-section button:last-child { /* Selecciona el último botón */
-                background-color: #f2b01e; /* Naranja */
-                color: #fff; /* Blanco */
-            }
-
+    .input-group .btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 
     /* Table Styles */
     .table-container {
-        overflow-x: auto; 
+        overflow-x: auto;
     }
 
     .table {
@@ -69,15 +56,14 @@
         }
 
         .table th {
-            background-color: #f2b01e; 
+            background-color: #f2b01e;
             color: white;
         }
 
         .table tr:nth-child(even) {
             background-color: #f2b01e;
-                     border-radius: 20px;
+            border-radius: 20px;
         }
-
 
         .table button {
             padding: 5px 10px;
@@ -109,7 +95,6 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
 </style>
 
 <div class="container mt-4">
@@ -135,12 +120,12 @@
             <button class="btn btn-success" style="background-color:black" @onclick="AddEmpleado">Nuevo Empleado</button>
             <div class="d-flex align-items-center">
                 <div class="input-group me-2">
-                    <input id="nombre" class="form-control form-control-sm" placeholder="Nombre" value="@searchNombre" @oninput="e => searchNombre = e.Value.ToString()" />
+                    <input id="nombre" class="form-control form-control-sm" placeholder="Nombre" @oninput="e => OnNombreInput(e)" value="@searchNombre" />
                 </div>
                 <div class="input-group me-2">
-                    <input id="apellido" class="form-control form-control-sm" placeholder="Apellido" value="@searchApellido" @oninput="e => searchApellido = e.Value.ToString()" />
+                    <input id="apellido" class="form-control form-control-sm" placeholder="Apellido" @oninput="e => OnApellidoInput(e)" value="@searchApellido" />
                 </div>
-                <button class="btn btn-primary btn-sm" style="background-color:orang" @onclick="BuscarEmpleados">Buscar</button>
+                <button class="btn btn-primary btn-sm" style="background-color:orange" @onclick="BuscarEmpleados">Buscar</button>
                 <button class="btn btn-secondary btn-sm ms-2" @onclick="LimpiarBusqueda">Limpiar</button>
             </div>
         </div>
@@ -201,29 +186,15 @@
 </div>
 
 @code {
-    /// <summary>
-    /// Declara una lista privada que contiene todos los empleados.(private List<Empleado> empleados;)
-    ///  Declara una lista privada que contiene los empleados filtrados según los criterios de búsqueda.( private List<Empleado> empleadosFiltrados;)
-    ///  Declara una variable privada para almacenar el nombre de búsqueda.(private string searchNombre = string.Empty;)
-    ///  Declara una variable privada para almacenar el apellido de búsqueda.(private string searchApellido = string.Empty;)
-    /// </summary>
-
     private List<Empleado> empleados;
     private List<Empleado> empleadosFiltrados;
     private List<Empleado> empleadosPaginaActual;
     private string searchNombre = string.Empty;
     private string searchApellido = string.Empty;
-    /// <summary>
-    /// Variables de paginación
-    /// </summary>
+
     private int paginaActual = 1;
     private int itemsPorPagina = 10;
     private int totalPaginas => (int)Math.Ceiling((double)empleadosFiltrados.Count / itemsPorPagina);
-    /// <summary>
-    /// Sobrescribe el método OnInitializedAsync que se ejecuta cuando el componente se inicializa.
-    ///  // Inicializa la lista de empleados desde la base de datos.
-    /// </summary>
-    /// <returns></returns>
 
     protected override async Task OnInitializedAsync()
     {
@@ -231,28 +202,16 @@
         empleadosFiltrados = empleados;
         ActualizarPagina();
     }
-    /// <summary>
-    /// Navega a la página de creación de empleados.
-    /// </summary>
 
     private void AddEmpleado()
     {
         NavigationManager.NavigateTo("/Empleados/crear");
     }
-    /// <summary>
-    ///  Navega a la página de edición de un empleado específico.
-    /// </summary>
-    /// <param name="id"></param>
 
     private void EditEmpleado(int id)
     {
         NavigationManager.NavigateTo($"/Empleados/editar/{id}");
     }
-    /// <summary>
-    /// Elimina un empleado de la base de datos y actualiza la lista de empleados.
-    /// </summary>
-    /// <param name="empleadoId"></param>
-    /// <returns></returns>
 
     private async Task DeleteEmpleado(int empleadoId)
     {
@@ -284,22 +243,17 @@
             }
         }
     }
-    /// <summary>
-    /// Filtra la lista de empleados según los criterios de búsqueda de nombre y apellido.
-    /// </summary>
-    ///  private void BuscarEmpleados()
+
     private void BuscarEmpleados()
     {
-    empleadosFiltrados = empleados.Where(e =>
-        (string.IsNullOrEmpty(searchNombre) || e.Nombre.Equals(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
-        (string.IsNullOrEmpty(searchApellido) || e.Apellido.Equals(searchApellido, StringComparison.OrdinalIgnoreCase))
-    ).ToList();
-    paginaActual = 1; // Reset to the first page
-    ActualizarPagina();
+        empleadosFiltrados = empleados.Where(e =>
+            (string.IsNullOrEmpty(searchNombre) || e.Nombre.Contains(searchNombre, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(searchApellido) || e.Apellido.Contains(searchApellido, StringComparison.OrdinalIgnoreCase))
+        ).ToList();
+        paginaActual = 1; // Reset to the first page
+        ActualizarPagina();
     }
-    /// <summary>
-    /// Limpia los criterios de búsqueda y restaura la lista completa de empleados.
-    /// </summary>
+
     private void LimpiarBusqueda()
     {
         searchNombre = string.Empty;
@@ -309,9 +263,6 @@
         ActualizarPagina();
     }
 
-    /// <summary>
-    /// Actualiza la lista de empleados mostrados en la página actual
-    /// </summary>
     private void ActualizarPagina()
     {
         empleadosPaginaActual = empleadosFiltrados
@@ -319,9 +270,7 @@
             .Take(itemsPorPagina)
             .ToList();
     }
-    /// <summary>
-    /// Cambia a la página anterior si es posible
-    /// </summary>
+
     private void PreviousPage()
     {
         if (paginaActual > 1)
@@ -330,9 +279,7 @@
             ActualizarPagina();
         }
     }
-    /// <summary>
-    /// Cambia a la página siguiente si es posible
-    /// </summary>
+
     private void NextPage()
     {
         if (paginaActual < totalPaginas)
@@ -341,15 +288,23 @@
             ActualizarPagina();
         }
     }
-    /// <summary>
-    ///  Calcula los empleados a mostrar en la página actual y permite actualizar la página y el número de ítems por página.
-    ///  Cambia el número de ítems por página y reinicia la página a la primera
-    /// </summary>
-    /// <param name="e"></param>
+
     private void OnItemsPerPageChange(ChangeEventArgs e)
     {
         itemsPorPagina = int.Parse(e.Value.ToString());
         paginaActual = 1; // Reset to the first page
         ActualizarPagina();
+    }
+
+    private void OnNombreInput(ChangeEventArgs e)
+    {
+        searchNombre = e.Value.ToString();
+        BuscarEmpleados();
+    }
+
+    private void OnApellidoInput(ChangeEventArgs e)
+    {
+        searchApellido = e.Value.ToString();
+        BuscarEmpleados();
     }
 }
