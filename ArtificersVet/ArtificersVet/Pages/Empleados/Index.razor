@@ -7,6 +7,111 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
+<style>
+    /* General Styles */
+    body {
+        font-family: sans-serif;
+        background-color: #f0e68c; 
+    }
+
+    .container {
+        max-width: 90%; 
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+   
+    
+
+        .header-section button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            /* Botón "Crear nuevo empleado" */
+            .header-section button:first-child { /* Selecciona el primer botón */
+                background-color: #000; /* Negro */
+                color: #fff; /* Blanco */
+            }
+
+            /* Botón "Buscar" */
+            .header-section button:last-child { /* Selecciona el último botón */
+                background-color: #f2b01e; /* Naranja */
+                color: #fff; /* Blanco */
+            }
+
+
+    /* Table Styles */
+    .table-container {
+        overflow-x: auto; 
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f2b01e; 
+            color: white;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2b01e;
+                     border-radius: 20px;
+        }
+
+
+        .table button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .table .btn-primary {
+            background-color: blue; /* Blue button */
+            color: white;
+        }
+
+        .table .btn-danger {
+            background-color: #dc3545; /* Red button */
+            color: white;
+        }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+        .pagination button, .pagination select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+</style>
+
 <div class="container mt-4">
     <h3 class="mb-4">Gestión de Empleados</h3>
 
@@ -27,7 +132,7 @@
     else
     {
         <div class="mb-3 d-flex justify-content-between align-items-center">
-            <button class="btn btn-success" @onclick="AddEmpleado">Nuevo Empleado</button>
+            <button class="btn btn-success" style="background-color:black" @onclick="AddEmpleado">Nuevo Empleado</button>
             <div class="d-flex align-items-center">
                 <div class="input-group me-2">
                     <input id="nombre" class="form-control form-control-sm" placeholder="Nombre" value="@searchNombre" @oninput="e => searchNombre = e.Value.ToString()" />
@@ -35,7 +140,7 @@
                 <div class="input-group me-2">
                     <input id="apellido" class="form-control form-control-sm" placeholder="Apellido" value="@searchApellido" @oninput="e => searchApellido = e.Value.ToString()" />
                 </div>
-                <button class="btn btn-primary btn-sm" @onclick="BuscarEmpleados">Buscar</button>
+                <button class="btn btn-primary btn-sm" style="background-color:orang" @onclick="BuscarEmpleados">Buscar</button>
                 <button class="btn btn-secondary btn-sm ms-2" @onclick="LimpiarBusqueda">Limpiar</button>
             </div>
         </div>

@@ -7,105 +7,104 @@
 
 <h3 class="text-center mt-4">Editar Empleado</h3>
 
-@if (empleado == null)
-{
-    <p><em>Cargando...</em></p>
-}
-else
-{
-    <div class="container mt-3">
-        <div class="row align-items-center justify-content-between mb-3">
-            <div class="col-auto">
-                <h5>Información del Empleado</h5>
-                <div class="mb-2">
-                    <p><strong>Nombre:</strong> @empleado.Nombre</p>
-                    <p><strong>Apellido:</strong> @empleado.Apellido</p>
-                    <!-- Add more fields as needed -->
+    <style>
+        
+        body {
+            background-color: #FFFACD;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Dos columnas para esta vista */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .btn-guardar {
+            background-color: black;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background-color: #FFD700; /* Amarillo fuerte */
+            color: black;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
+    <center><h3>Editar Empleado</h3></center>
+
+    @if (empleado == null)
+    {
+        <p><em>Cargando...</em></p>
+    }
+    else
+    {
+        <EditForm Model="@empleado" OnValidSubmit="ActualizarEmpleado">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <InputText id="nombre" @bind-Value="empleado.Nombre" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Nombre)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <InputText id="apellido" @bind-Value="empleado.Apellido" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Apellido)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <InputText id="email" type="email" @bind-Value="empleado.Email" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <InputText id="telefono" @bind-Value="empleado.Telefono" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Telefono)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <InputText id="direccion" @bind-Value="empleado.Direccion" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Direccion)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="puesto">Puesto:</label>
+                    <InputText id="puesto" @bind-Value="empleado.Puesto" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Puesto)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="salario">Salario:</label>
+                    <InputNumber id="salario" @bind-Value="empleado.Salario" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.Salario)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaContratacion">Fecha de Contratación:</label>
+                    <InputDate id="fechaContratacion" @bind-Value="empleado.FechaContratacion" class="form-control" />
+                    <ValidationMessage For="@(() => empleado.FechaContratacion)" />
                 </div>
             </div>
-            <div class="col-auto">
-                <!-- Replace with a more visually appealing and dynamic image or component -->
-                <img src="/img/jaa.webp" alt="Datos en tiempo real" style="max-width: 200px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+
+            <div>
+                <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
             </div>
-        </div>
+        </EditForm>
+    }
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow">
-                    <div class="card-header text-center">
-                        <h5>Información del Empleado</h5>
-                    </div>
-                    <div class="card-body">
-                        <EditForm Model="empleado" OnValidSubmit="ActualizarEmpleado">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="nombre">Nombre</label>
-                                    <InputText id="nombre" class="form-control" @bind-Value="empleado.Nombre" />
-                                    <ValidationMessage For="@(() => empleado.Nombre)" />
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="apellido">Apellido</label>
-                                    <InputText id="apellido" class="form-control" @bind-Value="empleado.Apellido" />
-                                    <ValidationMessage For="@(() => empleado.Apellido)" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="email">Email</label>
-                                    <InputText id="email" type="email" class="form-control" @bind-Value="empleado.Email" />
-                                    <ValidationMessage For="@(() => empleado.Email)" />
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="telefono">Teléfono</label>
-                                    <InputText id="telefono" class="form-control" @bind-Value="empleado.Telefono" />
-                                    <ValidationMessage For="@(() => empleado.Telefono)" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="direccion">Dirección</label>
-                                    <InputText id="direccion" class="form-control" @bind-Value="empleado.Direccion" />
-                                    <ValidationMessage For="@(() => empleado.Direccion)" />
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="puesto">Puesto</label>
-                                    <InputText id="puesto" class="form-control" @bind-Value="empleado.Puesto" />
-                                    <ValidationMessage For="@(() => empleado.Puesto)" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="salario">Salario</label>
-                                    <InputNumber id="salario" class="form-control" @bind-Value="empleado.Salario" />
-                                    <ValidationMessage For="@(() => empleado.Salario)" />
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="fechaContratacion">Fecha de Contratación</label>
-                                    <InputDate id="fechaContratacion" class="form-control" @bind-Value="empleado.FechaContratacion" />
-                                    <ValidationMessage For="@(() => empleado.FechaContratacion)" />
-                                </div>
-                            </div>
-
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary">Actualizar</button>
-                            </div>
-                        </EditForm>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
 
 @code {
@@ -137,6 +136,11 @@ else
     {
         dbContext.Empleados.Update(empleado);
         await dbContext.SaveChangesAsync();
+        NavigationManager.NavigateTo("/Empleados/index");
+    }
+
+    private void Cancelar()
+    {
         NavigationManager.NavigateTo("/Empleados/index");
     }
 }
