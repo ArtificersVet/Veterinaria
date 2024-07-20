@@ -66,9 +66,13 @@ else
 @code {
     private Mascota1 mascota;
     private List<Cliente1> clientes;
-
+    /////<summary>
+    /// Se declara un parámetro público id que se utiliza para recibir el identificador de la mascota
+    /// y declara una variable privada mascota que contendrá la información de la mascota que se va a actualizar
+    ///// </summary>
     [Parameter]
     public int Id { get; set; }
+  
 
     protected override async Task OnInitializedAsync()
     {
@@ -78,7 +82,10 @@ else
 
         clientes = await dbContext.Clientes1.ToListAsync();
     }
-
+    /////<summary>
+    /////se manda un mensaje de alerta, para confirmar que el registro se modifico correctamente
+    //////</summary>
+    
     private async Task HandleValidSubmit()
     {
         dbContext.Update(mascota);
@@ -89,7 +96,9 @@ else
             NavigationManager.NavigateTo("/mascotas/index");
         }
     }
-
+    /////<summary>
+    /////cancela y devuelve al index
+    //////</summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/mascotas/index");

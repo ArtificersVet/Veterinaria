@@ -25,6 +25,9 @@
         }
         else
         {
+            ////<Summary>
+            ////Acá se mostrara el listado de las todas las mascotas
+            ////</Summary>
             <h3>Listado de Mascotas</h3>
             <button class="btn-create" @onclick="AddMascota">Nueva Mascota</button>
             <table class="mascotas-table">
@@ -68,6 +71,10 @@
 
 @code {
     private List<Mascota1> mascotas;
+    /////<summary>
+    /// Carga inicial de las mascotas al abrir la página.
+    ///// </summary>
+
     private string nombreBusqueda = null;
     private int actualPage = 1;
     private int pageCantidadRegistros = 15;
@@ -105,16 +112,27 @@
             .ToListAsync();
     }
 
+    ///// <summary>
+    /// Redirige a la página de creación de una nueva mascota.
+    ///// </summary>
     private void AddMascota()
     {
         NavigationManager.NavigateTo("/Mascotas/create");
     }
+    ///// <summary>
+    /// Redirige a la página de edición de una mascota existente, identificada por su ID.
+    ///// </summary>
 
     private void EditMascota(int id)
     {
         NavigationManager.NavigateTo($"/Mascotas/edit/{id}");
     }
 
+    /////<summary>
+
+    /////<param name="id">ID de la mascota a eliminar.</param>
+    //  </summary>
+    
     private async Task DeleteMascota(int id)
     {
         var mascota = await dbContext.Mascotas1.FindAsync(id);

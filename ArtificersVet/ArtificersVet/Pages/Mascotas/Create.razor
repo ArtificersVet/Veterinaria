@@ -65,6 +65,9 @@
 </EditForm>
 
 @code {
+    ///<summary>
+    /// proporciona funcionalidad para crear un nuevo mascota en la base de datos
+    ///</summary>
     private Mascota1 mascota = new Mascota1();
     private List<Cliente1> clientes;
 
@@ -73,7 +76,10 @@
     {
         clientes = await dbContext.Clientes1.ToListAsync();
     }
-
+    ////<summary>
+    /// se encarga de agregar una nueva mascota a la base de datos y guardar los cambios
+    ///</summary>
+    ///<returns>private async Task HandleValidSubmit()</returns>
     private async Task HandleValidSubmit()
     {
         dbContext.Mascotas1.Add(mascota);
@@ -82,7 +88,9 @@
         NavigationManager.NavigateTo("/mascotas/index");
     }
 
- 
+    ///<summary>
+    /////cancela y regresa al index
+    ///</summary>
     private void Cancelar()
     {
         NavigationManager.NavigateTo("/mascotas/index");
