@@ -96,19 +96,33 @@
             color: white;
         }
 
-    /* Pagination */
     .pagination {
         display: flex;
-        justify-content: space-between;
+        justify-content: center; /* Centra los elementos horizontalmente */
         align-items: center;
         margin-top: 20px;
+        gap: 10px; /* Espacio entre los elementos */
     }
 
-        .pagination button, .pagination select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .pagination button,
+        .pagination select {
+            background-color: #ffcc66; /* Color naranja suave */
+            color: black;
+            padding: 8px 12px; /* Aumenta un poco el padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+        .pagination span {
+            font-weight: bold;
+        }
+
+        /* Hover effect para botones */
+        .pagination button:hover {
+            background-color: #e6b800; /* Naranja más oscuro al pasar el mouse */
+        }
+
 
 </style>
 
@@ -182,7 +196,8 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="d-flex justify-content-between align-items-center mt-3 ">
+            <div class="pagination">
             <div>
                 <button class="btn btn-secondary btn-sm" @onclick="PreviousPage" disabled="@(paginaActual == 1)">Anterior</button>
                 <span class="mx-2">Página @paginaActual de @totalPaginas</span>
@@ -195,6 +210,7 @@
                     <option value="10">10</option>
                     <option value="15">15</option>
                 </select>
+            </div>
             </div>
         </div>
     }
