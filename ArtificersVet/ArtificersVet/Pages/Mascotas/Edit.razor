@@ -1,0 +1,97 @@
+﻿@page "/Mascotas/edit/{Id:int}"
+@using ArtificersVet.Models
+@using ArtificersVet.Data
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+<center><h3>Editar Mascota</h3></center>
+
+@if (mascota == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <EditForm Model="mascota" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="clienteId">Cliente:</label>
+            <InputSelect id="clienteId" @bind-Value="mascota.ClienteId" class="form-control">
+                <option value="">Seleccione un cliente</option>
+                @foreach (var cliente in clientes)
+                {
+                    <option value="@cliente.Id" selected="@(cliente.Id == mascota.ClienteId)">@cliente.Nombre @cliente.Apellido</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => mascota.ClienteId)" />
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <InputText id="nombre" @bind-Value="mascota.Nombre" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Nombre)" />
+        </div>
+        <div class="form-group">
+            <label for="especie">Especie:</label>
+            <InputText id="especie" @bind-Value="mascota.Especie" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Especie)" />
+        </div>
+        <div class="form-group">
+            <label for="raza">Raza:</label>
+            <InputText id="raza" @bind-Value="mascota.Raza" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Raza)" />
+        </div>
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <InputNumber id="edad" @bind-Value="mascota.Edad" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Edad)" />
+        </div>
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <InputText id="sexo" @bind-Value="mascota.Sexo" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Sexo)" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+            <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    private Mascota1 mascota;
+    private List<Cliente1> clientes;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        mascota = await dbContext.Mascotas1
+            .Include(m => m.Cliente)
+            .FirstOrDefaultAsync(m => m.Id == Id);
+
+        clientes = await dbContext.Clientes1.ToListAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        dbContext.Update(mascota);
+        int result = await dbContext.SaveChangesAsync();
+        if (result != 0)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Los datos se modificaron correctamente");
+            NavigationManager.NavigateTo("/mascotas/index");
+        }
+    }
+
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/mascotas/index");
+    }
+}
