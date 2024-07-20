@@ -63,6 +63,33 @@ else
     </EditForm>
 }
 
+<style>
+    body {
+        background-color: #FFFACD; /* Amarillo suave */
+    }
+
+    .form-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .btn-guardar {
+        background-color: black;
+        color: white;
+    }
+
+    .btn-cancelar {
+        background-color: #FFD700; /* Amarillo fuerte */
+        color: black;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 @code {
     private Mascota1 mascota;
     private List<Cliente1> clientes;
