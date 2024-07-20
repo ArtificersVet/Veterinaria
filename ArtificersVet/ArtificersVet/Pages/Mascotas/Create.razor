@@ -1,0 +1,90 @@
+﻿@page "/Mascotas/create"
+@using ArtificersVet.Data
+@using ArtificersVet.Models
+@using Microsoft.EntityFrameworkCore
+@inject VeterinariaDbContext dbContext
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<center><h3>Crear Mascota</h3></center>
+
+<EditForm Model="@mascota" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-container">
+        <div class="form-group">
+            <label for="clienteId">Cliente:</label>
+            <InputSelect id="clienteId" @bind-Value="mascota.ClienteId" class="form-control">
+                <option value="">Seleccione un cliente</option>
+                @if (clientes != null)
+                {
+                    @foreach (var cliente in clientes)
+                    {
+                        <option value="@cliente.Id">@cliente.Nombre @cliente.Apellido</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => mascota.ClienteId)" />
+        </div>
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <InputText id="nombre" @bind-Value="mascota.Nombre" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Nombre)" />
+        </div>
+
+        <div class="form-group">
+            <label for="especie">Especie:</label>
+            <InputText id="especie" @bind-Value="mascota.Especie" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Especie)" />
+        </div>
+
+        <div class="form-group">
+            <label for="raza">Raza:</label>
+            <InputText id="raza" @bind-Value="mascota.Raza" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Raza)" />
+        </div>
+
+        <div class="form-group">
+            <label for="edad">Edad:</label>
+            <InputNumber id="edad" @bind-Value="mascota.Edad" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Edad)" />
+        </div>
+
+        <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <InputText id="sexo" @bind-Value="mascota.Sexo" class="form-control" />
+            <ValidationMessage For="@(() => mascota.Sexo)" />
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+        <button type="button" class="btn btn-secondary btn-cancelar" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+
+@code {
+    private Mascota1 mascota = new Mascota1();
+    private List<Cliente1> clientes;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await dbContext.Clientes1.ToListAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        dbContext.Mascotas1.Add(mascota);
+        await dbContext.SaveChangesAsync();
+        await JSRuntime.InvokeVoidAsync("alert", "La mascota se creó correctamente");
+        NavigationManager.NavigateTo("/mascotas/index");
+    }
+
+ 
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/mascotas/index");
+    }
+}
